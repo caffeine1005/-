@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="UserManagerTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:02:20.436Z" hostname="MAIN-DESKTOP" time="0.064">
+  <properties/>
+  <testcase name="loginTrimsWhitespace()" classname="UserManagerTest" time="0.004"/>
+  <testcase name="deleteUserRejectsAdmin()" classname="UserManagerTest" time="0.004"/>
+  <testcase name="registerGeneralUserRejectsEmptyFields()" classname="UserManagerTest" time="0.002"/>
+  <testcase name="updateCustomIdRejectsExistingId()" classname="UserManagerTest" time="0.004"/>
+  <testcase name="registerAndUpdateUserProfile()" classname="UserManagerTest" time="0.008"/>
+  <testcase name="ensureDefaultAdminCreatesAdminOnce()" classname="UserManagerTest" time="0.004"/>
+  <testcase name="deleteUserValidatesInput()" classname="UserManagerTest" time="0.002"/>
+  <testcase name="changePasswordRejectsEmpty()" classname="UserManagerTest" time="0.004"/>
+  <testcase name="ensureDefaultAdminCustomIdStable()" classname="UserManagerTest" time="0.004"/>
+  <testcase name="deleteUserRemovesNonAdmin()" classname="UserManagerTest" time="0.005"/>
+  <testcase name="createUserRejectsDuplicates()" classname="UserManagerTest" time="0.003"/>
+  <testcase name="guestUserHasGuestTypeAndId()" classname="UserManagerTest" time="0.002"/>
+  <testcase name="registerGeneralUserTrimsInputs()" classname="UserManagerTest" time="0.003"/>
+  <testcase name="ensureDefaultAdminHandlesExistingCustomId()" classname="UserManagerTest" time="0.005"/>
+  <testcase name="updateFullNameRejectsBlank()" classname="UserManagerTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

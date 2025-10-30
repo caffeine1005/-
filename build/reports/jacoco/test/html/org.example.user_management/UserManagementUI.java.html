@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserManagementUI.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">A2</a> &gt; <a href="index.source.html" class="el_package">org.example.user_management</a> &gt; <span class="el_source">UserManagementUI.java</span></div><h1>UserManagementUI.java</h1><pre class="source lang-java linenums">package org.example.user_management;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GraphicsEnvironment;
+import java.awt.HeadlessException;
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+import org.example.digital_scroll_management.DigitalScroll;
+import org.example.digital_scroll_management.DigitalScrollService;
+import org.example.scroll_seeker.ScrollSeekerConsole;
+
+public class UserManagementUI {
+    private final Scanner scanner;
+    private final UserManager userManager;
+    private final DigitalScrollService scrollService;
+    private final ScrollSeekerConsole scrollSeekerConsole;
+    private User currentUser;
+<span class="fc" id="L36">    private boolean running = true;</span>
+
+    public UserManagementUI(Scanner scanner,
+                            UserManager userManager,
+                            DigitalScrollService scrollService,
+<span class="fc" id="L41">                            ScrollSeekerConsole scrollSeekerConsole) {</span>
+<span class="fc" id="L42">        this.scanner = scanner;</span>
+<span class="fc" id="L43">        this.userManager = userManager;</span>
+<span class="fc" id="L44">        this.scrollService = scrollService;</span>
+<span class="fc" id="L45">        this.scrollSeekerConsole = scrollSeekerConsole;</span>
+<span class="fc" id="L46">    }</span>
+
+    public void start() {
+<span class="fc" id="L49">        userManager.ensureDefaultAdmin();</span>
+<span class="fc" id="L50">        System.out.println(&quot;Welcome to the Virtual Scroll Access System (VSAS)&quot;);</span>
+        try {
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            while (running) {</span>
+<span class="fc" id="L53">                showMainMenu();</span>
+            }
+<span class="fc" id="L55">        } catch (InputClosedException ex) {</span>
+<span class="fc" id="L56">            System.out.println();</span>
+<span class="fc" id="L57">            System.out.println(&quot;Input stream closed. Exiting application.&quot;);</span>
+<span class="fc" id="L58">        }</span>
+<span class="fc" id="L59">    }</span>
+
+    private void showMainMenu() {
+<span class="fc" id="L62">        System.out.println(&quot;--------------------------------------&quot;);</span>
+<span class="fc" id="L63">        System.out.println(&quot;Current user: &quot; + getDisplayName());</span>
+<span class="fc" id="L64">        System.out.println(&quot;1. Log in&quot;);</span>
+<span class="fc" id="L65">        System.out.println(&quot;2. Register&quot;);</span>
+<span class="fc" id="L66">        System.out.println(&quot;3. Continue as guest&quot;);</span>
+<span class="fc" id="L67">        System.out.println(&quot;4. Exit&quot;);</span>
+<span class="fc" id="L68">        String choice = prompt(&quot;Select an option: &quot;);</span>
+<span class="pc bpc" id="L69" title="1 of 5 branches missed.">        switch (choice) {</span>
+<span class="fc" id="L70">            case &quot;1&quot; -&gt; handleLogin();</span>
+<span class="fc" id="L71">            case &quot;2&quot; -&gt; handleRegistration();</span>
+<span class="fc" id="L72">            case &quot;3&quot; -&gt; handleGuest();</span>
+            case &quot;4&quot; -&gt; {
+<span class="fc" id="L74">                running = false;</span>
+<span class="fc" id="L75">                System.out.println(&quot;Goodbye!&quot;);</span>
+<span class="fc" id="L76">            }</span>
+<span class="nc" id="L77">            default -&gt; System.out.println(&quot;Invalid option, please try again.&quot;);</span>
+        }
+<span class="fc" id="L79">    }</span>
+
+    private void handleLogin() {
+<span class="fc" id="L82">        String username = prompt(&quot;Username: &quot;);</span>
+<span class="fc" id="L83">        String password = prompt(&quot;Password: &quot;);</span>
+<span class="fc" id="L84">        User loggedIn = userManager.login(username, password);</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (loggedIn == null) {</span>
+<span class="fc" id="L86">            System.out.println(&quot;Login failed. Please check your details.&quot;);</span>
+<span class="fc" id="L87">            return;</span>
+        }
+<span class="fc" id="L89">        currentUser = loggedIn;</span>
+<span class="fc" id="L90">        System.out.println(&quot;Welcome, &quot; + currentUser.getUsername() + &quot;!&quot;);</span>
+<span class="fc" id="L91">        accountMenu();</span>
+<span class="fc" id="L92">    }</span>
+
+    private void handleRegistration() {
+        try {
+<span class="fc" id="L96">            String username = prompt(&quot;Choose a username: &quot;);</span>
+<span class="fc" id="L97">            String password = prompt(&quot;Choose a password: &quot;);</span>
+<span class="fc" id="L98">            String email = prompt(&quot;Email: &quot;);</span>
+<span class="fc" id="L99">            String phone = prompt(&quot;Phone number: &quot;);</span>
+<span class="fc" id="L100">            String fullName = prompt(&quot;Full name: &quot;);</span>
+<span class="fc" id="L101">            String customId = prompt(&quot;Custom ID: &quot;);</span>
+<span class="fc" id="L102">            currentUser = userManager.registerGeneralUser(username, password, email, phone, fullName, customId);</span>
+<span class="fc" id="L103">            System.out.println(&quot;Registration successful. You are now logged in.&quot;);</span>
+<span class="fc" id="L104">            accountMenu();</span>
+<span class="nc" id="L105">        } catch (IllegalArgumentException ex) {</span>
+<span class="nc" id="L106">            System.out.println(&quot;Registration failed: &quot; + ex.getMessage());</span>
+<span class="fc" id="L107">        }</span>
+<span class="fc" id="L108">    }</span>
+
+    private void handleGuest() {
+<span class="fc" id="L111">        currentUser = userManager.createGuestUser();</span>
+<span class="fc" id="L112">        System.out.println(&quot;Guest mode enabled. Upload and download are disabled.&quot;);</span>
+<span class="fc" id="L113">        guestMenu();</span>
+<span class="fc" id="L114">        currentUser = null;</span>
+<span class="fc" id="L115">    }</span>
+
+    private void accountMenu() {
+<span class="fc" id="L118">        boolean stay = true;</span>
+<span class="pc bpc" id="L119" title="2 of 6 branches missed.">        while (stay &amp;&amp; currentUser != null &amp;&amp; currentUser.getUserType() != UserType.GUEST) {</span>
+<span class="fc" id="L120">            System.out.println(&quot;--------------------------------------&quot;);</span>
+<span class="fc" id="L121">            System.out.println(&quot;Account menu (&quot; + getDisplayName() + &quot;)&quot;);</span>
+<span class="fc" id="L122">            System.out.println(&quot;1. View profile&quot;);</span>
+<span class="fc" id="L123">            System.out.println(&quot;2. Update profile&quot;);</span>
+<span class="fc" id="L124">            System.out.println(&quot;3. Scroll management&quot;);</span>
+<span class="fc" id="L125">            System.out.println(&quot;4. View &amp; download scrolls&quot;);</span>
+<span class="fc" id="L126">            System.out.println(&quot;5. Return&quot;);</span>
+<span class="fc" id="L127">            String choice = prompt(&quot;Select an option: &quot;);</span>
+<span class="pc bpc" id="L128" title="1 of 6 branches missed.">            switch (choice) {</span>
+<span class="fc" id="L129">                case &quot;1&quot; -&gt; showProfile();</span>
+<span class="fc" id="L130">                case &quot;2&quot; -&gt; updateProfileMenu();</span>
+<span class="fc" id="L131">                case &quot;3&quot; -&gt; scrollManagementMenu();</span>
+<span class="nc" id="L132">                case &quot;4&quot; -&gt; scrollSeekerConsole.viewAndDownloadMenu(true);</span>
+                case &quot;5&quot; -&gt; {
+<span class="fc" id="L134">                    System.out.println(&quot;Returning to main menu.&quot;);</span>
+<span class="fc" id="L135">                    stay = false;</span>
+<span class="fc" id="L136">                }</span>
+<span class="fc" id="L137">                default -&gt; System.out.println(&quot;Invalid option, please try again.&quot;);</span>
+            }
+<span class="fc" id="L139">        }</span>
+<span class="pc bpc" id="L140" title="2 of 4 branches missed.">        if (currentUser != null &amp;&amp; currentUser.getUserType() != UserType.GUEST) {</span>
+<span class="fc" id="L141">            System.out.println(&quot;You have been logged out.&quot;);</span>
+<span class="fc" id="L142">            currentUser = null;</span>
+        }
+<span class="fc" id="L144">    }</span>
+
+    private void updateProfileMenu() {
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
+<span class="nc" id="L148">            return;</span>
+        }
+<span class="fc" id="L150">        boolean stay = true;</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        while (stay) {</span>
+<span class="fc" id="L152">            System.out.println(&quot;--------------------------------------&quot;);</span>
+<span class="fc" id="L153">            System.out.println(&quot;Update profile (&quot; + getDisplayName() + &quot;)&quot;);</span>
+<span class="fc" id="L154">            System.out.println(&quot;1. Update full name&quot;);</span>
+<span class="fc" id="L155">            System.out.println(&quot;2. Update email&quot;);</span>
+<span class="fc" id="L156">            System.out.println(&quot;3. Update phone&quot;);</span>
+<span class="fc" id="L157">            System.out.println(&quot;4. Change password&quot;);</span>
+<span class="fc" id="L158">            System.out.println(&quot;5. Update custom ID&quot;);</span>
+<span class="fc" id="L159">            System.out.println(&quot;6. Update profile picture&quot;);</span>
+<span class="fc" id="L160">            System.out.println(&quot;7. Return&quot;);</span>
+<span class="fc" id="L161">            String choice = prompt(&quot;Select an option: &quot;);</span>
+<span class="pc bpc" id="L162" title="1 of 8 branches missed.">            switch (choice) {</span>
+<span class="fc" id="L163">                case &quot;1&quot; -&gt; updateFullName();</span>
+<span class="fc" id="L164">                case &quot;2&quot; -&gt; updateEmail();</span>
+<span class="fc" id="L165">                case &quot;3&quot; -&gt; updatePhone();</span>
+<span class="fc" id="L166">                case &quot;4&quot; -&gt; updatePassword();</span>
+<span class="fc" id="L167">                case &quot;5&quot; -&gt; updateCustomId();</span>
+<span class="fc" id="L168">                case &quot;6&quot; -&gt; updateProfilePicture();</span>
+<span class="fc" id="L169">                case &quot;7&quot; -&gt; stay = false;</span>
+<span class="nc" id="L170">                default -&gt; System.out.println(&quot;Invalid option, please try again.&quot;);</span>
+            }
+<span class="fc" id="L172">        }</span>
+<span class="fc" id="L173">    }</span>
+
+    private void scrollManagementMenu() {
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
+<span class="nc" id="L177">            return;</span>
+        }
+<span class="pc bpc" id="L179" title="1 of 2 branches missed.">        if (currentUser.getUserType() == UserType.ADMIN) {</span>
+<span class="fc" id="L180">            adminScrollMenu();</span>
+        } else {
+<span class="nc" id="L182">            userScrollMenu();</span>
+        }
+<span class="fc" id="L184">    }</span>
+
+    private void userScrollMenu() {
+<span class="fc" id="L187">        boolean stay = true;</span>
+<span class="pc bpc" id="L188" title="1 of 4 branches missed.">        while (stay &amp;&amp; currentUser != null) {</span>
+<span class="fc" id="L189">            System.out.println(&quot;--------------------------------------&quot;);</span>
+<span class="fc" id="L190">            System.out.println(&quot;Scroll management (&quot; + getDisplayName() + &quot;)&quot;);</span>
+<span class="fc" id="L191">            System.out.println(&quot;1. List my scrolls&quot;);</span>
+<span class="fc" id="L192">            System.out.println(&quot;2. Add new scroll&quot;);</span>
+<span class="fc" id="L193">            System.out.println(&quot;3. Edit my scroll&quot;);</span>
+<span class="fc" id="L194">            System.out.println(&quot;4. Remove my scroll&quot;);</span>
+<span class="fc" id="L195">            System.out.println(&quot;5. Return&quot;);</span>
+<span class="fc" id="L196">            String choice = prompt(&quot;Select an option: &quot;);</span>
+<span class="pc bpc" id="L197" title="4 of 6 branches missed.">            switch (choice) {</span>
+<span class="nc" id="L198">                case &quot;1&quot; -&gt; listMyScrolls();</span>
+<span class="nc" id="L199">                case &quot;2&quot; -&gt; addScroll();</span>
+<span class="nc" id="L200">                case &quot;3&quot; -&gt; editScroll();</span>
+<span class="nc" id="L201">                case &quot;4&quot; -&gt; removeScroll();</span>
+<span class="fc" id="L202">                case &quot;5&quot; -&gt; stay = false;</span>
+<span class="fc" id="L203">                default -&gt; System.out.println(&quot;Invalid option, please try again.&quot;);</span>
+            }
+<span class="fc" id="L205">        }</span>
+<span class="fc" id="L206">    }</span>
+
+    private void adminScrollMenu() {
+<span class="fc" id="L209">        boolean stay = true;</span>
+<span class="pc bpc" id="L210" title="1 of 4 branches missed.">        while (stay &amp;&amp; currentUser != null) {</span>
+<span class="fc" id="L211">            System.out.println(&quot;--------------------------------------&quot;);</span>
+<span class="fc" id="L212">            System.out.println(&quot;Admin scroll management (&quot; + getDisplayName() + &quot;)&quot;);</span>
+<span class="fc" id="L213">            System.out.println(&quot;1. List all scrolls&quot;);</span>
+<span class="fc" id="L214">            System.out.println(&quot;2. List my scrolls&quot;);</span>
+<span class="fc" id="L215">            System.out.println(&quot;3. Add new scroll&quot;);</span>
+<span class="fc" id="L216">            System.out.println(&quot;4. Edit my scroll&quot;);</span>
+<span class="fc" id="L217">            System.out.println(&quot;5. Remove my scroll&quot;);</span>
+<span class="fc" id="L218">            System.out.println(&quot;6. List all users&quot;);</span>
+<span class="fc" id="L219">            System.out.println(&quot;7. Create user&quot;);</span>
+<span class="fc" id="L220">            System.out.println(&quot;8. Delete user&quot;);</span>
+<span class="fc" id="L221">            System.out.println(&quot;9. View scroll stats&quot;);</span>
+<span class="fc" id="L222">            System.out.println(&quot;10. Return&quot;);</span>
+<span class="fc" id="L223">            String choice = prompt(&quot;Select an option: &quot;);</span>
+<span class="pc bpc" id="L224" title="1 of 11 branches missed.">            switch (choice) {</span>
+<span class="fc" id="L225">                case &quot;1&quot; -&gt; listAllScrolls();</span>
+<span class="fc" id="L226">                case &quot;2&quot; -&gt; listMyScrolls();</span>
+<span class="nc" id="L227">                case &quot;3&quot; -&gt; addScroll();</span>
+<span class="fc" id="L228">                case &quot;4&quot; -&gt; editScroll();</span>
+<span class="fc" id="L229">                case &quot;5&quot; -&gt; removeScroll();</span>
+<span class="fc" id="L230">                case &quot;6&quot; -&gt; listUsers();</span>
+<span class="fc" id="L231">                case &quot;7&quot; -&gt; createUserByAdmin();</span>
+<span class="fc" id="L232">                case &quot;8&quot; -&gt; deleteUserByAdmin();</span>
+<span class="fc" id="L233">                case &quot;9&quot; -&gt; showStats();</span>
+<span class="fc" id="L234">                case &quot;10&quot; -&gt; stay = false;</span>
+<span class="fc" id="L235">                default -&gt; System.out.println(&quot;Invalid option, please try again.&quot;);</span>
+            }
+<span class="fc" id="L237">        }</span>
+<span class="fc" id="L238">    }</span>
+
+    private void guestMenu() {
+<span class="fc" id="L241">        boolean stay = true;</span>
+<span class="pc bpc" id="L242" title="2 of 6 branches missed.">        while (stay &amp;&amp; currentUser != null &amp;&amp; currentUser.getUserType() == UserType.GUEST) {</span>
+<span class="fc" id="L243">            System.out.println(&quot;--------------------------------------&quot;);</span>
+<span class="fc" id="L244">            System.out.println(&quot;Guest menu (&quot; + getDisplayName() + &quot;)&quot;);</span>
+<span class="fc" id="L245">            System.out.println(&quot;1. Browse scrolls&quot;);</span>
+<span class="fc" id="L246">            System.out.println(&quot;2. Return to main menu&quot;);</span>
+<span class="fc" id="L247">            String choice = prompt(&quot;Select an option: &quot;);</span>
+<span class="fc bfc" id="L248" title="All 3 branches covered.">            switch (choice) {</span>
+<span class="fc" id="L249">                case &quot;1&quot; -&gt; scrollSeekerConsole.viewAndDownloadMenu(false);</span>
+<span class="fc" id="L250">                case &quot;2&quot; -&gt; stay = false;</span>
+<span class="fc" id="L251">                default -&gt; System.out.println(&quot;Invalid option, please try again.&quot;);</span>
+            }
+<span class="fc" id="L253">        }</span>
+<span class="fc" id="L254">    }</span>
+
+    private void showProfile() {
+<span class="fc bfc" id="L257" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="fc" id="L258">            return;</span>
+        }
+<span class="fc" id="L260">        System.out.println(&quot;Username: &quot; + currentUser.getUsername());</span>
+<span class="fc" id="L261">        System.out.println(&quot;Full name: &quot; + currentUser.getFullName());</span>
+<span class="fc" id="L262">        System.out.println(&quot;Email: &quot; + currentUser.getEmail());</span>
+<span class="fc" id="L263">        System.out.println(&quot;Phone: &quot; + currentUser.getPhoneNumber());</span>
+<span class="fc" id="L264">        System.out.println(&quot;Custom ID: &quot; + currentUser.getCustomId());</span>
+<span class="fc" id="L265">        System.out.println(&quot;User type: &quot; + currentUser.getUserType().name().toLowerCase());</span>
+<span class="fc" id="L266">        String picturePath = currentUser.getProfilePicturePath();</span>
+<span class="pc bpc" id="L267" title="3 of 4 branches missed.">        if (picturePath == null || picturePath.isBlank()) {</span>
+<span class="fc" id="L268">            System.out.println(&quot;Profile picture: not set&quot;);</span>
+        } else {
+<span class="nc" id="L270">            System.out.println(&quot;Profile picture: &quot; + picturePath);</span>
+        }
+<span class="fc" id="L272">    }</span>
+
+    private void updateFullName() {
+<span class="fc bfc" id="L275" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="fc" id="L276">            return;</span>
+        }
+        try {
+<span class="fc" id="L279">            String fullName = prompt(&quot;New full name: &quot;);</span>
+<span class="fc" id="L280">            userManager.updateFullName(currentUser, fullName);</span>
+<span class="fc" id="L281">            System.out.println(&quot;Full name updated.&quot;);</span>
+<span class="fc" id="L282">        } catch (IllegalArgumentException ex) {</span>
+<span class="fc" id="L283">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="fc" id="L284">        }</span>
+<span class="fc" id="L285">    }</span>
+
+    private void updateEmail() {
+<span class="fc bfc" id="L288" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="fc" id="L289">            return;</span>
+        }
+        try {
+<span class="fc" id="L292">            String email = prompt(&quot;New email: &quot;);</span>
+<span class="fc" id="L293">            userManager.updateEmail(currentUser, email);</span>
+<span class="fc" id="L294">            System.out.println(&quot;Email updated.&quot;);</span>
+<span class="nc" id="L295">        } catch (IllegalArgumentException ex) {</span>
+<span class="nc" id="L296">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="fc" id="L297">        }</span>
+<span class="fc" id="L298">    }</span>
+
+    private void updatePhone() {
+<span class="fc bfc" id="L301" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="fc" id="L302">            return;</span>
+        }
+        try {
+<span class="fc" id="L305">            String phone = prompt(&quot;New phone: &quot;);</span>
+<span class="fc" id="L306">            userManager.updatePhone(currentUser, phone);</span>
+<span class="fc" id="L307">            System.out.println(&quot;Phone updated.&quot;);</span>
+<span class="nc" id="L308">        } catch (IllegalArgumentException ex) {</span>
+<span class="nc" id="L309">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="fc" id="L310">        }</span>
+<span class="fc" id="L311">    }</span>
+
+    private void updatePassword() {
+<span class="fc bfc" id="L314" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="fc" id="L315">            return;</span>
+        }
+        try {
+<span class="fc" id="L318">            String password = prompt(&quot;New password: &quot;);</span>
+<span class="fc" id="L319">            userManager.changePassword(currentUser, password);</span>
+<span class="fc" id="L320">            System.out.println(&quot;Password updated.&quot;);</span>
+<span class="nc" id="L321">        } catch (IllegalArgumentException ex) {</span>
+<span class="nc" id="L322">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="fc" id="L323">        }</span>
+<span class="fc" id="L324">    }</span>
+
+    private void updateCustomId() {
+<span class="fc bfc" id="L327" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="fc" id="L328">            return;</span>
+        }
+        try {
+<span class="fc" id="L331">            String customId = prompt(&quot;New custom ID: &quot;);</span>
+<span class="fc" id="L332">            userManager.updateCustomId(currentUser, customId);</span>
+<span class="fc" id="L333">            System.out.println(&quot;Custom ID updated.&quot;);</span>
+<span class="nc" id="L334">        } catch (IllegalArgumentException ex) {</span>
+<span class="nc" id="L335">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="fc" id="L336">        }</span>
+<span class="fc" id="L337">    }</span>
+
+    private void updateProfilePicture() {
+<span class="pc bpc" id="L340" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
+<span class="nc" id="L341">            return;</span>
+        }
+<span class="fc" id="L343">        String response = prompt(&quot;Do you want to add or update a profile picture? (yes/no): &quot;);</span>
+<span class="pc bpc" id="L344" title="2 of 4 branches missed.">        if (!(response.equalsIgnoreCase(&quot;yes&quot;) || response.equalsIgnoreCase(&quot;y&quot;))) {</span>
+<span class="fc" id="L345">            System.out.println(&quot;Profile picture update cancelled.&quot;);</span>
+<span class="fc" id="L346">            return;</span>
+        }
+<span class="nc" id="L348">        String selectedPath = chooseFile(&quot;Select Profile Picture&quot;, &quot;Save&quot;);</span>
+<span class="nc bnc" id="L349" title="All 2 branches missed.">        if (selectedPath == null) {</span>
+<span class="nc" id="L350">            return;</span>
+        }
+        try {
+<span class="nc" id="L353">            Path source = Paths.get(selectedPath);</span>
+<span class="nc bnc" id="L354" title="All 4 branches missed.">            if (!Files.exists(source) || Files.isDirectory(source)) {</span>
+<span class="nc" id="L355">                System.out.println(&quot;Selected file is not valid.&quot;);</span>
+<span class="nc" id="L356">                return;</span>
+            }
+<span class="nc" id="L358">            Path storageDir = Paths.get(&quot;data&quot;, &quot;profile_pictures&quot;);</span>
+<span class="nc" id="L359">            Files.createDirectories(storageDir);</span>
+<span class="nc" id="L360">            String fileName = source.getFileName().toString();</span>
+<span class="nc" id="L361">            String extension = &quot;&quot;;</span>
+<span class="nc" id="L362">            int dotIndex = fileName.lastIndexOf('.');</span>
+<span class="nc bnc" id="L363" title="All 2 branches missed.">            if (dotIndex &gt;= 0) {</span>
+<span class="nc" id="L364">                extension = fileName.substring(dotIndex);</span>
+            }
+<span class="nc" id="L366">            String sanitizedBase = currentUser.getUsername().replaceAll(&quot;[^a-zA-Z0-9-_]&quot;, &quot;_&quot;);</span>
+<span class="nc bnc" id="L367" title="All 2 branches missed.">            if (sanitizedBase.isEmpty()) {</span>
+<span class="nc" id="L368">                sanitizedBase = &quot;user&quot;;</span>
+            }
+<span class="nc" id="L370">            Path target = storageDir.resolve(sanitizedBase + extension);</span>
+<span class="nc" id="L371">            Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);</span>
+<span class="nc" id="L372">            userManager.updateProfilePicture(currentUser, target.toAbsolutePath().toString());</span>
+<span class="nc" id="L373">            System.out.println(&quot;Profile picture saved.&quot;);</span>
+<span class="nc" id="L374">        } catch (InvalidPathException ex) {</span>
+<span class="nc" id="L375">            System.out.println(&quot;Selected path is invalid: &quot; + ex.getReason());</span>
+<span class="nc" id="L376">        } catch (IOException ex) {</span>
+<span class="nc" id="L377">            System.out.println(&quot;Failed to save profile picture: &quot; + ex.getMessage());</span>
+<span class="nc" id="L378">        } catch (IllegalArgumentException ex) {</span>
+<span class="nc" id="L379">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L380">        }</span>
+<span class="nc" id="L381">    }</span>
+
+    private void listUsers() {
+<span class="fc" id="L384">        List&lt;User&gt; users = userManager.getAllUsers();</span>
+<span class="pc bpc" id="L385" title="1 of 2 branches missed.">        if (users.isEmpty()) {</span>
+<span class="nc" id="L386">            System.out.println(&quot;No users found.&quot;);</span>
+<span class="nc" id="L387">            return;</span>
+        }
+<span class="fc" id="L389">        System.out.println(&quot;All users:&quot;);</span>
+<span class="fc bfc" id="L390" title="All 2 branches covered.">        for (User user : users) {</span>
+<span class="fc" id="L391">            System.out.println(&quot; - &quot; + formatUserLine(user));</span>
+<span class="fc" id="L392">        }</span>
+<span class="fc" id="L393">    }</span>
+
+    private void createUserByAdmin() {
+        try {
+<span class="fc" id="L397">            String username = prompt(&quot;Username: &quot;);</span>
+<span class="fc" id="L398">            String password = prompt(&quot;Password: &quot;);</span>
+<span class="fc" id="L399">            String email = prompt(&quot;Email: &quot;);</span>
+<span class="fc" id="L400">            String phone = prompt(&quot;Phone number: &quot;);</span>
+<span class="fc" id="L401">            String fullName = prompt(&quot;Full name: &quot;);</span>
+<span class="fc" id="L402">            String customId = prompt(&quot;Custom ID: &quot;);</span>
+<span class="fc" id="L403">            UserType type = readUserType();</span>
+<span class="fc" id="L404">            userManager.createUser(username, password, email, phone, fullName, customId, type);</span>
+<span class="fc" id="L405">            System.out.println(&quot;User created.&quot;);</span>
+<span class="nc" id="L406">        } catch (IllegalArgumentException ex) {</span>
+<span class="nc" id="L407">            System.out.println(&quot;Creation failed: &quot; + ex.getMessage());</span>
+<span class="fc" id="L408">        }</span>
+<span class="fc" id="L409">    }</span>
+
+    private void deleteUserByAdmin() {
+<span class="fc" id="L412">        String username = prompt(&quot;Username to delete: &quot;);</span>
+        try {
+<span class="fc" id="L414">            userManager.deleteUser(username);</span>
+<span class="fc" id="L415">            System.out.println(&quot;User deleted.&quot;);</span>
+<span class="nc" id="L416">        } catch (IllegalArgumentException ex) {</span>
+<span class="nc" id="L417">            System.out.println(&quot;Delete failed: &quot; + ex.getMessage());</span>
+<span class="fc" id="L418">        }</span>
+<span class="fc" id="L419">    }</span>
+
+    private void showStats() {
+<span class="fc" id="L422">        List&lt;String&gt; stats = scrollService.getScrollStatistics();</span>
+<span class="fc" id="L423">        System.out.println(&quot;Scroll stats:&quot;);</span>
+<span class="fc bfc" id="L424" title="All 2 branches covered.">        for (String line : stats) {</span>
+<span class="fc" id="L425">            System.out.println(&quot; - &quot; + line);</span>
+<span class="fc" id="L426">        }</span>
+<span class="fc" id="L427">    }</span>
+
+    private void listMyScrolls() {
+<span class="fc bfc" id="L430" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="fc" id="L431">            return;</span>
+        }
+<span class="fc" id="L433">        List&lt;DigitalScroll&gt; scrolls = scrollService.listScrollsByOwner(currentUser.getUsername());</span>
+<span class="pc bpc" id="L434" title="1 of 2 branches missed.">        if (scrolls.isEmpty()) {</span>
+<span class="nc" id="L435">            System.out.println(&quot;You do not have any scrolls yet.&quot;);</span>
+<span class="nc" id="L436">            return;</span>
+        }
+<span class="fc" id="L438">        System.out.println(&quot;Your scrolls:&quot;);</span>
+<span class="fc bfc" id="L439" title="All 2 branches covered.">        for (DigitalScroll scroll : scrolls) {</span>
+<span class="fc" id="L440">            System.out.println(&quot; - &quot; + formatScrollLine(scroll));</span>
+<span class="fc" id="L441">        }</span>
+<span class="fc" id="L442">    }</span>
+
+    private void addScroll() {
+<span class="fc bfc" id="L445" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="fc" id="L446">            return;</span>
+        }
+        try {
+<span class="fc" id="L449">            String name = prompt(&quot;Scroll name: &quot;);</span>
+<span class="fc" id="L450">            String selectedPath = chooseFile();</span>
+<span class="fc bfc" id="L451" title="All 2 branches covered.">            if (selectedPath == null) {</span>
+<span class="fc" id="L452">                return;</span>
+            }
+<span class="fc" id="L454">            DigitalScroll scroll = scrollService.addScroll(currentUser.getUsername(), name, selectedPath);</span>
+<span class="fc" id="L455">            System.out.println(&quot;Successful upload. Scroll ID: &quot; + scroll.getScrollId() + &quot;.&quot;);</span>
+<span class="nc" id="L456">        } catch (IllegalArgumentException | IllegalStateException ex) {</span>
+<span class="nc" id="L457">            System.out.println(&quot;Add failed: &quot; + ex.getMessage());</span>
+<span class="fc" id="L458">        }</span>
+<span class="fc" id="L459">    }</span>
+
+    private void editScroll() {
+<span class="pc bpc" id="L462" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
+<span class="nc" id="L463">            return;</span>
+        }
+<span class="fc" id="L465">        String id = prompt(&quot;Scroll ID to edit: &quot;);</span>
+<span class="fc" id="L466">        String newName = prompt(&quot;New name (leave blank to keep current): &quot;);</span>
+<span class="fc" id="L467">        String replace = prompt(&quot;Replace binary file? (y/n): &quot;);</span>
+<span class="fc" id="L468">        String newFile = null;</span>
+<span class="fc bfc" id="L469" title="All 2 branches covered.">        if (replace.equalsIgnoreCase(&quot;y&quot;)) {</span>
+<span class="fc" id="L470">            newFile = chooseFile();</span>
+<span class="pc bpc" id="L471" title="1 of 2 branches missed.">            if (newFile == null) {</span>
+<span class="fc" id="L472">                return;</span>
+            }
+        }
+        try {
+<span class="fc" id="L476">            scrollService.updateScroll(currentUser.getUsername(), id, newName, newFile);</span>
+<span class="fc" id="L477">            System.out.println(&quot;Scroll updated.&quot;);</span>
+<span class="nc" id="L478">        } catch (IllegalArgumentException | IllegalStateException ex) {</span>
+<span class="nc" id="L479">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
+<span class="fc" id="L480">        }</span>
+<span class="fc" id="L481">    }</span>
+
+    private void removeScroll() {
+<span class="fc bfc" id="L484" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="fc" id="L485">            return;</span>
+        }
+<span class="fc" id="L487">        String id = prompt(&quot;Scroll ID to remove: &quot;);</span>
+        try {
+<span class="fc" id="L489">            scrollService.removeScroll(currentUser.getUsername(), id);</span>
+<span class="fc" id="L490">            System.out.println(&quot;Scroll removed.&quot;);</span>
+<span class="fc" id="L491">        } catch (IllegalArgumentException ex) {</span>
+<span class="fc" id="L492">            System.out.println(&quot;Remove failed: &quot; + ex.getMessage());</span>
+<span class="fc" id="L493">        }</span>
+<span class="fc" id="L494">    }</span>
+
+    private void listAllScrolls() {
+<span class="fc" id="L497">        List&lt;DigitalScroll&gt; scrolls = scrollService.listAllScrolls();</span>
+<span class="pc bpc" id="L498" title="1 of 2 branches missed.">        if (scrolls.isEmpty()) {</span>
+<span class="nc" id="L499">            System.out.println(&quot;There are no scrolls in the library.&quot;);</span>
+<span class="nc" id="L500">            return;</span>
+        }
+<span class="fc" id="L502">        System.out.println(&quot;All scrolls:&quot;);</span>
+<span class="fc bfc" id="L503" title="All 2 branches covered.">        for (DigitalScroll scroll : scrolls) {</span>
+<span class="fc" id="L504">            System.out.println(&quot; - &quot; + formatScrollLine(scroll));</span>
+<span class="fc" id="L505">        }</span>
+<span class="fc" id="L506">    }</span>
+
+    private UserType readUserType() {
+        while (true) {
+<span class="fc" id="L510">            String choice = prompt(&quot;Select user type (1 = General, 2 = Admin): &quot;);</span>
+<span class="fc bfc" id="L511" title="All 2 branches covered.">            if (&quot;1&quot;.equals(choice)) {</span>
+<span class="fc" id="L512">                return UserType.GENERAL;</span>
+            }
+<span class="fc bfc" id="L514" title="All 2 branches covered.">            if (&quot;2&quot;.equals(choice)) {</span>
+<span class="fc" id="L515">                return UserType.ADMIN;</span>
+            }
+<span class="fc" id="L517">            System.out.println(&quot;Invalid option, please try again.&quot;);</span>
+<span class="fc" id="L518">        }</span>
+    }
+
+    private String formatUserLine(User user) {
+<span class="fc" id="L522">        return &quot;username=&quot; + user.getUsername()</span>
+<span class="fc" id="L523">                + &quot; fullName=&quot; + user.getFullName()</span>
+<span class="fc" id="L524">                + &quot; type=&quot; + user.getUserType().name().toLowerCase()</span>
+<span class="fc" id="L525">                + &quot; email=&quot; + user.getEmail()</span>
+<span class="fc" id="L526">                + &quot; phone=&quot; + user.getPhoneNumber()</span>
+<span class="fc" id="L527">                + &quot; id=&quot; + user.getCustomId();</span>
+    }
+
+    private String formatScrollLine(DigitalScroll scroll) {
+<span class="fc" id="L531">        return &quot;id=&quot; + scroll.getScrollId()</span>
+<span class="fc" id="L532">                + &quot; name=&quot; + scroll.getName()</span>
+<span class="fc" id="L533">                + &quot; owner=&quot; + scroll.getOwnerUsername()</span>
+<span class="fc" id="L534">                + &quot; uploaded=&quot; + scroll.getUploadTimestamp()</span>
+<span class="fc" id="L535">                + &quot; file=&quot; + scroll.getFilePath();</span>
+    }
+
+    private String getDisplayName() {
+<span class="fc bfc" id="L539" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="fc" id="L540">            return &quot;Not logged in&quot;;</span>
+        }
+<span class="fc" id="L542">        String typeLabel = currentUser.getUserType().name().toLowerCase();</span>
+<span class="fc" id="L543">        String displayName = currentUser.getFullName();</span>
+<span class="fc bfc" id="L544" title="All 4 branches covered.">        if (displayName == null || displayName.isEmpty()) {</span>
+<span class="fc" id="L545">            displayName = currentUser.getUsername();</span>
+        }
+<span class="fc" id="L547">        return displayName + &quot; (&quot; + typeLabel + &quot;)&quot;;</span>
+    }
+
+    private String prompt(String message) {
+<span class="fc" id="L551">        System.out.print(message);</span>
+        try {
+<span class="fc" id="L553">            String line = scanner.nextLine();</span>
+<span class="pc bpc" id="L554" title="1 of 2 branches missed.">            if (line == null) {</span>
+<span class="nc" id="L555">                throw new InputClosedException();</span>
+            }
+<span class="fc" id="L557">            return line.trim();</span>
+<span class="fc" id="L558">        } catch (IllegalStateException | java.util.NoSuchElementException ex) {</span>
+<span class="fc" id="L559">            throw new InputClosedException();</span>
+        }
+    }
+
+    private static class InputClosedException extends RuntimeException {
+        InputClosedException() {
+<span class="fc" id="L565">            super(&quot;scanner closed&quot;);</span>
+<span class="fc" id="L566">        }</span>
+    }
+
+    private String chooseFile() {
+<span class="fc" id="L570">        return chooseFile(&quot;Select Scroll File&quot;, &quot;Upload&quot;);</span>
+    }
+
+    private String chooseFile(String dialogTitle, String approveLabel) {
+<span class="pc bpc" id="L574" title="1 of 2 branches missed.">        if (GraphicsEnvironment.isHeadless()) {</span>
+<span class="fc" id="L575">            System.out.println(&quot;GUI file chooser is not available. Please type the file path.&quot;);</span>
+<span class="fc" id="L576">            String manual = prompt(&quot;File path (leave blank to cancel): &quot;);</span>
+<span class="fc bfc" id="L577" title="All 2 branches covered.">            if (manual.isEmpty()) {</span>
+<span class="fc" id="L578">                System.out.println(&quot;File selection cancelled.&quot;);</span>
+<span class="fc" id="L579">                return null;</span>
+            }
+<span class="fc" id="L581">            return manual;</span>
+        }
+<span class="nc" id="L583">        final String[] selectedPath = new String[1];</span>
+<span class="nc" id="L584">        final CountDownLatch latch = new CountDownLatch(1);</span>
+        try {
+<span class="nc" id="L586">            SwingUtilities.invokeLater(() -&gt; {</span>
+<span class="nc" id="L587">                JFrame frame = new JFrame(dialogTitle);</span>
+<span class="nc" id="L588">                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);</span>
+<span class="nc" id="L589">                JTextField pathField = new JTextField(25);</span>
+<span class="nc" id="L590">                JButton browseButton = new JButton(&quot;Browse...&quot;);</span>
+<span class="nc" id="L591">                JButton okButton = new JButton(approveLabel);</span>
+<span class="nc" id="L592">                JButton cancelButton = new JButton(&quot;Cancel&quot;);</span>
+
+<span class="nc" id="L594">                browseButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L595">                    JFileChooser chooser = new JFileChooser();</span>
+<span class="nc" id="L596">                    int result = chooser.showOpenDialog(frame);</span>
+<span class="nc bnc" id="L597" title="All 4 branches missed.">                    if (result == JFileChooser.APPROVE_OPTION &amp;&amp; chooser.getSelectedFile() != null) {</span>
+<span class="nc" id="L598">                        pathField.setText(chooser.getSelectedFile().getAbsolutePath());</span>
+                    }
+<span class="nc" id="L600">                });</span>
+
+<span class="nc" id="L602">                okButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L603">                    selectedPath[0] = pathField.getText().trim();</span>
+<span class="nc" id="L604">                    frame.dispose();</span>
+<span class="nc" id="L605">                    latch.countDown();</span>
+<span class="nc" id="L606">                });</span>
+
+<span class="nc" id="L608">                cancelButton.addActionListener(e -&gt; {</span>
+<span class="nc" id="L609">                    selectedPath[0] = null;</span>
+<span class="nc" id="L610">                    frame.dispose();</span>
+<span class="nc" id="L611">                    latch.countDown();</span>
+<span class="nc" id="L612">                });</span>
+
+<span class="nc" id="L614">                JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));</span>
+<span class="nc" id="L615">                inputPanel.add(new JLabel(&quot;File:&quot;));</span>
+<span class="nc" id="L616">                inputPanel.add(pathField);</span>
+<span class="nc" id="L617">                inputPanel.add(browseButton);</span>
+
+<span class="nc" id="L619">                JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));</span>
+<span class="nc" id="L620">                buttonPanel.add(okButton);</span>
+<span class="nc" id="L621">                buttonPanel.add(cancelButton);</span>
+
+<span class="nc" id="L623">                frame.getContentPane().add(inputPanel, BorderLayout.CENTER);</span>
+<span class="nc" id="L624">                frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);</span>
+<span class="nc" id="L625">                frame.pack();</span>
+<span class="nc" id="L626">                frame.setLocationRelativeTo(null);</span>
+<span class="nc" id="L627">                frame.setVisible(true);</span>
+<span class="nc" id="L628">            });</span>
+<span class="nc" id="L629">            latch.await();</span>
+<span class="nc" id="L630">        } catch (HeadlessException ex) {</span>
+<span class="nc" id="L631">            System.out.println(&quot;File chooser is not available in this environment.&quot;);</span>
+<span class="nc" id="L632">            return null;</span>
+<span class="nc" id="L633">        } catch (InterruptedException ex) {</span>
+<span class="nc" id="L634">            Thread.currentThread().interrupt();</span>
+<span class="nc" id="L635">            System.out.println(&quot;File selection interrupted.&quot;);</span>
+<span class="nc" id="L636">            return null;</span>
+<span class="nc" id="L637">        }</span>
+<span class="nc bnc" id="L638" title="All 4 branches missed.">        if (selectedPath[0] == null || selectedPath[0].isEmpty()) {</span>
+<span class="nc" id="L639">            System.out.println(&quot;File selection cancelled.&quot;);</span>
+<span class="nc" id="L640">            return null;</span>
+        }
+<span class="nc" id="L642">        return selectedPath[0];</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

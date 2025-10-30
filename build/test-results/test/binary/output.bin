@@ -1,0 +1,551 @@
+4Welcome to the Virtual Scroll Access System (VSAS)
+(--------------------------------------
+Current user: Not logged in
+1. Log in
+2. Register
+3. Continue as guest
+	4. Exit
+Select an option: Goodbye!
+&%(--------------------------------------
+&%Scroll seeker
+&%1. View scrolls
+&%2. Download scroll
+&%3. Search filters
+&%4. Preview scroll
+&%5. Return
+&%cSelect an option: ID=SC0001 | Name=Fireball | Owner=mage | Uploaded=2025-10-30T15:02:20.040758900
+&%(--------------------------------------
+&%Scroll seeker
+&%1. View scrolls
+&%2. Download scroll
+&%3. Search filters
+&%4. Preview scroll
+&%5. Return
+&%²Select an option: Scroll ID to download: Save as (full path, leave blank to cancel): Download completed: C:\Users\yukiw\AppData\Local\Temp\junit2665474761722632919\download.bin
+&%(--------------------------------------
+&%Scroll seeker
+&%1. View scrolls
+&%2. Download scroll
+&%3. Search filters
+&%4. Preview scroll
+&%5. Return
+&%…Select an option: Filter uploader (leave blank for ANY): Filter scroll ID (leave blank for ANY): Filter name (leave blank for ANY): Filter upload date (yyyy-mm-dd, blank for ANY): ID=SC0001 | Name=Fireball | Owner=mage | Uploaded=2025-10-30T15:02:20.040758900
+&%(--------------------------------------
+&%Scroll seeker
+&%1. View scrolls
+&%2. Download scroll
+&%3. Search filters
+&%4. Preview scroll
+&%5. Return
+&%2Select an option: Scroll ID to preview: 01 02 03
+&%(--------------------------------------
+&%Scroll seeker
+&%1. View scrolls
+&%2. Download scroll
+&%3. Search filters
+&%4. Preview scroll
+&%5. Return
+&%Select an option: &'(--------------------------------------
+&'Scroll seeker
+&'1. View scrolls
+&'/2. Download scroll (not available for guests)
+&'3. Search filters
+&'4. Preview scroll
+&'5. Return
+&'.Select an option: (no scrolls match filters)
+&'(--------------------------------------
+&'Scroll seeker
+&'1. View scrolls
+&'/2. Download scroll (not available for guests)
+&'3. Search filters
+&'4. Preview scroll
+&'5. Return
+&'3Select an option: Guests cannot download scrolls.
+&'(--------------------------------------
+&'Scroll seeker
+&'1. View scrolls
+&'/2. Download scroll (not available for guests)
+&'3. Search filters
+&'4. Preview scroll
+&'5. Return
+&'Select an option: ),,Save as (full path, leave blank to cancel): 874Welcome to the Virtual Scroll Access System (VSAS)
+87(--------------------------------------
+87Current user: Not logged in
+871. Log in
+872. Register
+873. Continue as guest
+87	4. Exit
+87ISelect an option: Guest mode enabled. Upload and download are disabled.
+87(--------------------------------------
+87!Guest menu (Guest User (guest))
+871. Browse scrolls
+872. Return to main menu
+87:Select an option: --------------------------------------
+87Scroll seeker
+871. View scrolls
+87/2. Download scroll (not available for guests)
+873. Search filters
+874. Preview scroll
+875. Return
+87.Select an option: (no scrolls match filters)
+87(--------------------------------------
+87Scroll seeker
+871. View scrolls
+87/2. Download scroll (not available for guests)
+873. Search filters
+874. Preview scroll
+875. Return
+873Select an option: Guests cannot download scrolls.
+87(--------------------------------------
+87Scroll seeker
+871. View scrolls
+87/2. Download scroll (not available for guests)
+873. Search filters
+874. Preview scroll
+875. Return
+87:Select an option: --------------------------------------
+87!Guest menu (Guest User (guest))
+871. Browse scrolls
+872. Return to main menu
+87:Select an option: --------------------------------------
+87Current user: Not logged in
+871. Log in
+872. Register
+873. Continue as guest
+87	4. Exit
+87Select an option: Goodbye!
+894Welcome to the Virtual Scroll Access System (VSAS)
+89(--------------------------------------
+89Current user: Not logged in
+891. Log in
+892. Register
+893. Continue as guest
+89	4. Exit
+89”Select an option: Choose a username: Choose a password: Email: Phone number: Full name: Custom ID: Registration successful. You are now logged in.
+89(--------------------------------------
+89#Account menu (User One (general))
+891. View profile
+892. Update profile
+893. Scroll management
+894. View & download scrolls
+895. Return
+89#Select an option: Username: user1
+89Full name: User One
+89Email: user1@example.com
+89Phone: 123456
+89Custom ID: ID-1
+89User type: general
+89Profile picture: not set
+89(--------------------------------------
+89#Account menu (User One (general))
+891. View profile
+892. Update profile
+893. Scroll management
+894. View & download scrolls
+895. Return
+89:Select an option: --------------------------------------
+89%Update profile (User One (general))
+891. Update full name
+892. Update email
+893. Update phone
+894. Change password
+895. Update custom ID
+896. Update profile picture
+897. Return
+895Select an option: New full name: Full name updated.
+89(--------------------------------------
+89-Update profile (User One Updated (general))
+891. Update full name
+892. Update email
+893. Update phone
+894. Change password
+895. Update custom ID
+896. Update profile picture
+897. Return
+89-Select an option: New email: Email updated.
+89(--------------------------------------
+89-Update profile (User One Updated (general))
+891. Update full name
+892. Update email
+893. Update phone
+894. Change password
+895. Update custom ID
+896. Update profile picture
+897. Return
+89-Select an option: New phone: Phone updated.
+89(--------------------------------------
+89-Update profile (User One Updated (general))
+891. Update full name
+892. Update email
+893. Update phone
+894. Change password
+895. Update custom ID
+896. Update profile picture
+897. Return
+893Select an option: New password: Password updated.
+89(--------------------------------------
+89-Update profile (User One Updated (general))
+891. Update full name
+892. Update email
+893. Update phone
+894. Change password
+895. Update custom ID
+896. Update profile picture
+897. Return
+895Select an option: New custom ID: Custom ID updated.
+89(--------------------------------------
+89-Update profile (User One Updated (general))
+891. Update full name
+892. Update email
+893. Update phone
+894. Change password
+895. Update custom ID
+896. Update profile picture
+897. Return
+89oSelect an option: Do you want to add or update a profile picture? (yes/no): Profile picture update cancelled.
+89(--------------------------------------
+89-Update profile (User One Updated (general))
+891. Update full name
+892. Update email
+893. Update phone
+894. Change password
+895. Update custom ID
+896. Update profile picture
+897. Return
+89:Select an option: --------------------------------------
+89+Account menu (User One Updated (general))
+891. View profile
+892. Update profile
+893. Scroll management
+894. View & download scrolls
+895. Return
+89+Select an option: Returning to main menu.
+89You have been logged out.
+89(--------------------------------------
+89Current user: Not logged in
+891. Log in
+892. Register
+893. Continue as guest
+89	4. Exit
+89Select an option: Goodbye!
+8:4Welcome to the Virtual Scroll Access System (VSAS)
+8:(--------------------------------------
+8:Current user: Not logged in
+8:1. Log in
+8:2. Register
+8:3. Continue as guest
+8:	4. Exit
+8:7Select an option: Username: Password: Welcome, admin!
+8:(--------------------------------------
+8:-Account menu (System Administrator (admin))
+8:1. View profile
+8:2. Update profile
+8:3. Scroll management
+8:4. View & download scrolls
+8:5. Return
+8::Select an option: --------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8: Select an option: All scrolls:
+8:² - id=SC0001 name=AdminScroll owner=admin uploaded=2025-10-30T15:02:20.228725500 file=C:\Users\yukiw\AppData\Local\Temp\junit15573070257680582553\uploads\SC0001_AdminScroll.bin
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8: Select an option: All scrolls:
+8:² - id=SC0001 name=AdminScroll owner=admin uploaded=2025-10-30T15:02:20.228725500 file=C:\Users\yukiw\AppData\Local\Temp\junit15573070257680582553\uploads\SC0001_AdminScroll.bin
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:!Select an option: Your scrolls:
+8:² - id=SC0001 name=AdminScroll owner=admin uploaded=2025-10-30T15:02:20.228725500 file=C:\Users\yukiw\AppData\Local\Temp\junit15573070257680582553\uploads\SC0001_AdminScroll.bin
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:5Select an option: Invalid option, please try again.
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:5Select an option: Invalid option, please try again.
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:zSelect an option: Scroll ID to edit: New name (leave blank to keep current): Replace binary file? (y/n): Scroll updated.
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:5Select an option: Invalid option, please try again.
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:5Select an option: Invalid option, please try again.
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:5Select an option: Invalid option, please try again.
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:ISelect an option: Scroll ID to remove: Remove failed: Scroll not found.
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:‹Select an option: Username: Password: Email: Phone number: Full name: Custom ID: Select user type (1 = General, 2 = Admin): User created.
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:Select an option: All users:
+8:n - username=admin fullName=System Administrator type=admin email=admin@example.com phone=0000000000 id=admin
+8:^ - username=newuser fullName=New User type=general email=new@example.com phone=999 id=NEW-ID
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:5Select an option: Username to delete: User deleted.
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8:!Select an option: Scroll stats:
+8:+ - id=SC0001 name=3 uploads=1 downloads=0
+8:(--------------------------------------
+8:8Admin scroll management (System Administrator (admin))
+8:1. List all scrolls
+8:2. List my scrolls
+8:3. Add new scroll
+8:4. Edit my scroll
+8:5. Remove my scroll
+8:6. List all users
+8:7. Create user
+8:8. Delete user
+8:9. View scroll stats
+8:10. Return
+8::Select an option: --------------------------------------
+8:-Account menu (System Administrator (admin))
+8:1. View profile
+8:2. Update profile
+8:3. Scroll management
+8:4. View & download scrolls
+8:5. Return
+8:+Select an option: Returning to main menu.
+8:You have been logged out.
+8:(--------------------------------------
+8:Current user: Not logged in
+8:1. Log in
+8:2. Register
+8:3. Continue as guest
+8:	4. Exit
+8:Select an option: Goodbye!
+<;(--------------------------------------
+<;8Admin scroll management (System Administrator (admin))
+<;1. List all scrolls
+<;2. List my scrolls
+<;3. Add new scroll
+<;4. Edit my scroll
+<;5. Remove my scroll
+<;6. List all users
+<;7. Create user
+<;8. Delete user
+<;9. View scroll stats
+<;10. Return
+<;Select an option: All users:
+<;n - username=admin fullName=System Administrator type=admin email=admin@example.com phone=0000000000 id=admin
+<;(--------------------------------------
+<;8Admin scroll management (System Administrator (admin))
+<;1. List all scrolls
+<;2. List my scrolls
+<;3. Add new scroll
+<;4. Edit my scroll
+<;5. Remove my scroll
+<;6. List all users
+<;7. Create user
+<;8. Delete user
+<;9. View scroll stats
+<;10. Return
+<;‹Select an option: Username: Password: Email: Phone number: Full name: Custom ID: Select user type (1 = General, 2 = Admin): User created.
+<;(--------------------------------------
+<;8Admin scroll management (System Administrator (admin))
+<;1. List all scrolls
+<;2. List my scrolls
+<;3. Add new scroll
+<;4. Edit my scroll
+<;5. Remove my scroll
+<;6. List all users
+<;7. Create user
+<;8. Delete user
+<;9. View scroll stats
+<;10. Return
+<;Select an option: All users:
+<;n - username=admin fullName=System Administrator type=admin email=admin@example.com phone=0000000000 id=admin
+<;b - username=alpha fullName=Alpha User type=general email=alpha@example.com phone=777 id=ALPHA-ID
+<;(--------------------------------------
+<;8Admin scroll management (System Administrator (admin))
+<;1. List all scrolls
+<;2. List my scrolls
+<;3. Add new scroll
+<;4. Edit my scroll
+<;5. Remove my scroll
+<;6. List all users
+<;7. Create user
+<;8. Delete user
+<;9. View scroll stats
+<;10. Return
+<;5Select an option: Username to delete: User deleted.
+<;(--------------------------------------
+<;8Admin scroll management (System Administrator (admin))
+<;1. List all scrolls
+<;2. List my scrolls
+<;3. Add new scroll
+<;4. Edit my scroll
+<;5. Remove my scroll
+<;6. List all users
+<;7. Create user
+<;8. Delete user
+<;9. View scroll stats
+<;10. Return
+<;!Select an option: Scroll stats:
+<;(--------------------------------------
+<;8Admin scroll management (System Administrator (admin))
+<;1. List all scrolls
+<;2. List my scrolls
+<;3. Add new scroll
+<;4. Edit my scroll
+<;5. Remove my scroll
+<;6. List all users
+<;7. Create user
+<;8. Delete user
+<;9. View scroll stats
+<;10. Return
+<;Select an option: >?hScroll ID to edit: New name (leave blank to keep current): Replace binary file? (y/n): Scroll updated.
+>D?GUI file chooser is not available. Please type the file path.
+>D#File path (leave blank to cancel): >ELScroll name: GUI file chooser is not available. Please type the file path.
+>EJFile path (leave blank to cancel): Successful upload. Scroll ID: SC0001.
+>K&Scroll ID to remove: Scroll removed.
+>M–Scroll ID to edit: New name (leave blank to keep current): Replace binary file? (y/n): GUI file chooser is not available. Please type the file path.
+>M>File path (leave blank to cancel): File selection cancelled.
+>NNSelect user type (1 = General, 2 = Admin): Invalid option, please try again.
+>NNSelect user type (1 = General, 2 = Admin): Invalid option, please try again.
+>N+Select user type (1 = General, 2 = Admin): 

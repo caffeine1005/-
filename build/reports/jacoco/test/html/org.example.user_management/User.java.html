@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">A2</a> &gt; <a href="index.source.html" class="el_package">org.example.user_management</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package org.example.user_management;
+
+public class User {
+    private final String username;
+    private String passwordHash;
+    private String email;
+    private String phoneNumber;
+    private String fullName;
+    private String customId;
+    private UserType userType;
+    private String profilePicturePath;
+
+    public User(String username,
+                String passwordHash,
+                String email,
+                String phoneNumber,
+                String fullName,
+                String customId,
+<span class="fc" id="L19">                UserType userType) {</span>
+<span class="fc" id="L20">        this.username = username;</span>
+<span class="fc" id="L21">        this.passwordHash = passwordHash;</span>
+<span class="fc" id="L22">        this.email = email;</span>
+<span class="fc" id="L23">        this.phoneNumber = phoneNumber;</span>
+<span class="fc" id="L24">        this.fullName = fullName;</span>
+<span class="fc" id="L25">        this.customId = customId;</span>
+<span class="fc" id="L26">        this.userType = userType;</span>
+<span class="fc" id="L27">        this.profilePicturePath = null;</span>
+<span class="fc" id="L28">    }</span>
+
+    public String getUsername() {
+<span class="fc" id="L31">        return username;</span>
+    }
+
+    public String getPasswordHash() {
+<span class="fc" id="L35">        return passwordHash;</span>
+    }
+
+    public void setPasswordHash(String passwordHash) {
+<span class="fc" id="L39">        this.passwordHash = passwordHash;</span>
+<span class="fc" id="L40">    }</span>
+
+    public String getEmail() {
+<span class="fc" id="L43">        return email;</span>
+    }
+
+    public void setEmail(String email) {
+<span class="fc" id="L47">        this.email = email;</span>
+<span class="fc" id="L48">    }</span>
+
+    public String getPhoneNumber() {
+<span class="fc" id="L51">        return phoneNumber;</span>
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+<span class="fc" id="L55">        this.phoneNumber = phoneNumber;</span>
+<span class="fc" id="L56">    }</span>
+
+    public String getFullName() {
+<span class="fc" id="L59">        return fullName;</span>
+    }
+
+    public void setFullName(String fullName) {
+<span class="fc" id="L63">        this.fullName = fullName;</span>
+<span class="fc" id="L64">    }</span>
+
+    public String getCustomId() {
+<span class="fc" id="L67">        return customId;</span>
+    }
+
+    public void setCustomId(String customId) {
+<span class="fc" id="L71">        this.customId = customId;</span>
+<span class="fc" id="L72">    }</span>
+
+    public UserType getUserType() {
+<span class="fc" id="L75">        return userType;</span>
+    }
+
+    public void setUserType(UserType userType) {
+<span class="nc" id="L79">        this.userType = userType;</span>
+<span class="nc" id="L80">    }</span>
+
+    public String getProfilePicturePath() {
+<span class="fc" id="L83">        return profilePicturePath;</span>
+    }
+
+    public void setProfilePicturePath(String profilePicturePath) {
+<span class="fc" id="L87">        this.profilePicturePath = profilePicturePath;</span>
+<span class="fc" id="L88">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

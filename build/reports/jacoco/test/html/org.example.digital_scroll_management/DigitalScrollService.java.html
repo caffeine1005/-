@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DigitalScrollService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">A2</a> &gt; <a href="index.source.html" class="el_package">org.example.digital_scroll_management</a> &gt; <span class="el_source">DigitalScrollService.java</span></div><h1>DigitalScrollService.java</h1><pre class="source lang-java linenums">package org.example.digital_scroll_management;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DigitalScrollService {
+    private final DigitalScrollRepository repository;
+    private final Path uploadDirectory;
+
+<span class="fc" id="L14">    public DigitalScrollService(DigitalScrollRepository repository, Path uploadDirectory) {</span>
+<span class="fc" id="L15">        this.repository = repository;</span>
+<span class="fc" id="L16">        this.uploadDirectory = uploadDirectory;</span>
+        try {
+<span class="fc" id="L18">            Files.createDirectories(uploadDirectory);</span>
+<span class="nc" id="L19">        } catch (IOException e) {</span>
+<span class="nc" id="L20">            throw new IllegalStateException(&quot;Unable to create upload directory: &quot; + uploadDirectory, e);</span>
+<span class="fc" id="L21">        }</span>
+<span class="fc" id="L22">    }</span>
+
+    public List&lt;DigitalScroll&gt; listAllScrolls() {
+<span class="fc" id="L25">        return repository.getAll();</span>
+    }
+
+    public List&lt;DigitalScroll&gt; listScrollsByOwner(String ownerUsername) {
+<span class="fc" id="L29">        List&lt;DigitalScroll&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        for (DigitalScroll scroll : repository.getAll()) {</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">            if (scroll.getOwnerUsername().equals(ownerUsername)) {</span>
+<span class="fc" id="L32">                result.add(scroll);</span>
+            }
+<span class="fc" id="L34">        }</span>
+<span class="fc" id="L35">        return result;</span>
+    }
+
+    public DigitalScroll addScroll(String ownerUsername, String name, String sourceFilePath) {
+<span class="fc" id="L39">        String safeName = requireValue(name, &quot;Scroll name&quot;);</span>
+<span class="fc" id="L40">        ensureUniqueName(safeName, null);</span>
+<span class="fc" id="L41">        Path source = checkReadableFile(sourceFilePath);</span>
+<span class="fc" id="L42">        String scrollId = repository.generateId();</span>
+<span class="fc" id="L43">        Path target = buildTargetPath(scrollId, safeName, source);</span>
+<span class="fc" id="L44">        copyFile(source, target);</span>
+<span class="fc" id="L45">        DigitalScroll scroll = new DigitalScroll(scrollId, safeName, ownerUsername, target.toString(), LocalDateTime.now(), 1, 0);</span>
+<span class="fc" id="L46">        repository.save(scroll);</span>
+<span class="fc" id="L47">        return scroll;</span>
+    }
+
+    public void updateScroll(String ownerUsername,
+                             String scrollId,
+                             String newName,
+                             String newSourceFilePath) {
+<span class="fc" id="L54">        DigitalScroll scroll = requireOwnedScroll(ownerUsername, scrollId);</span>
+<span class="fc" id="L55">        boolean fileReplaced = false;</span>
+<span class="pc bpc" id="L56" title="1 of 4 branches missed.">        if (newName != null &amp;&amp; !newName.trim().isEmpty()) {</span>
+<span class="fc" id="L57">            String safeName = newName.trim();</span>
+<span class="fc" id="L58">            ensureUniqueName(safeName, scrollId);</span>
+<span class="fc" id="L59">            scroll.setName(safeName);</span>
+        }
+<span class="pc bpc" id="L61" title="1 of 4 branches missed.">        if (newSourceFilePath != null &amp;&amp; !newSourceFilePath.trim().isEmpty()) {</span>
+<span class="fc" id="L62">            Path source = checkReadableFile(newSourceFilePath);</span>
+<span class="fc" id="L63">            Path target = Path.of(scroll.getFilePath());</span>
+<span class="fc" id="L64">            copyFile(source, target);</span>
+<span class="fc" id="L65">            fileReplaced = true;</span>
+        }
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (fileReplaced) {</span>
+<span class="fc" id="L68">            scroll.incrementUploadCount();</span>
+        }
+<span class="fc" id="L70">        repository.save(scroll);</span>
+<span class="fc" id="L71">    }</span>
+
+    public DigitalScroll getScroll(String scrollId) {
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (scrollId == null) {</span>
+<span class="fc" id="L75">            return null;</span>
+        }
+<span class="fc" id="L77">        return repository.findById(scrollId.trim());</span>
+    }
+
+    public void removeScroll(String ownerUsername, String scrollId) {
+<span class="fc" id="L81">        DigitalScroll scroll = requireOwnedScroll(ownerUsername, scrollId);</span>
+<span class="fc" id="L82">        Path filePath = Path.of(scroll.getFilePath());</span>
+        try {
+<span class="fc" id="L84">            Files.deleteIfExists(filePath);</span>
+<span class="nc" id="L85">        } catch (IOException ignored) {</span>
+<span class="fc" id="L86">        }</span>
+<span class="fc" id="L87">        repository.delete(scrollId);</span>
+<span class="fc" id="L88">    }</span>
+
+    public void recordDownload(DigitalScroll scroll) {
+<span class="fc" id="L91">        scroll.incrementDownloadCount();</span>
+<span class="fc" id="L92">        repository.save(scroll);</span>
+<span class="fc" id="L93">    }</span>
+
+    public List&lt;String&gt; getScrollStatistics() {
+<span class="fc" id="L96">        List&lt;String&gt; stats = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        for (DigitalScroll scroll : repository.getAll()) {</span>
+<span class="fc" id="L98">            stats.add(String.format(&quot;id=%s name=%s uploads=%d downloads=%d&quot;,</span>
+<span class="fc" id="L99">                    scroll.getScrollId(),</span>
+<span class="fc" id="L100">                    scroll.getName(),</span>
+<span class="fc" id="L101">                    scroll.getUploadCount(),</span>
+<span class="fc" id="L102">                    scroll.getDownloadCount()));</span>
+<span class="fc" id="L103">        }</span>
+<span class="fc" id="L104">        return stats;</span>
+    }
+
+    private DigitalScroll requireOwnedScroll(String ownerUsername, String scrollId) {
+<span class="pc bpc" id="L108" title="1 of 4 branches missed.">        if (scrollId == null || scrollId.trim().isEmpty()) {</span>
+<span class="fc" id="L109">            throw new IllegalArgumentException(&quot;Scroll ID is required.&quot;);</span>
+        }
+<span class="fc" id="L111">        DigitalScroll scroll = repository.findById(scrollId.trim());</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (scroll == null) {</span>
+<span class="fc" id="L113">            throw new IllegalArgumentException(&quot;Scroll not found.&quot;);</span>
+        }
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        if (!scroll.getOwnerUsername().equals(ownerUsername)) {</span>
+<span class="fc" id="L116">            throw new IllegalArgumentException(&quot;You can only modify your own scrolls.&quot;);</span>
+        }
+<span class="fc" id="L118">        return scroll;</span>
+    }
+
+    private void ensureUniqueName(String name, String ignoreScrollId) {
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        for (DigitalScroll existing : repository.getAll()) {</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">            if (existing.getName().equalsIgnoreCase(name)) {</span>
+<span class="pc bpc" id="L124" title="1 of 4 branches missed.">                if (ignoreScrollId == null || !existing.getScrollId().equals(ignoreScrollId)) {</span>
+<span class="fc" id="L125">                    throw new IllegalArgumentException(&quot;Scroll name must be unique.&quot;);</span>
+                }
+            }
+<span class="fc" id="L128">        }</span>
+<span class="fc" id="L129">    }</span>
+
+    private Path checkReadableFile(String filePath) {
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        if (filePath == null) {</span>
+<span class="fc" id="L133">            throw new IllegalArgumentException(&quot;File path is required.&quot;);</span>
+        }
+<span class="fc" id="L135">        Path source = Path.of(filePath.trim());</span>
+<span class="pc bpc" id="L136" title="1 of 4 branches missed.">        if (!Files.exists(source) || !Files.isRegularFile(source)) {</span>
+<span class="fc" id="L137">            throw new IllegalArgumentException(&quot;Source file does not exist.&quot;);</span>
+        }
+<span class="fc" id="L139">        return source;</span>
+    }
+
+    private Path buildTargetPath(String scrollId, String name, Path source) {
+<span class="fc" id="L143">        String cleanName = name.replaceAll(&quot;[^a-zA-Z0-9_\\-]&quot;, &quot;_&quot;);</span>
+<span class="fc" id="L144">        String extension = extractExtension(source.getFileName().toString());</span>
+<span class="fc" id="L145">        String filename = scrollId + &quot;_&quot; + cleanName + extension;</span>
+<span class="fc" id="L146">        return uploadDirectory.resolve(filename);</span>
+    }
+
+    private String extractExtension(String filename) {
+<span class="fc" id="L150">        int index = filename.lastIndexOf('.');</span>
+<span class="pc bpc" id="L151" title="1 of 4 branches missed.">        if (index &gt;= 0 &amp;&amp; index &lt; filename.length() - 1) {</span>
+<span class="fc" id="L152">            return filename.substring(index);</span>
+        }
+<span class="fc" id="L154">        return &quot;&quot;;</span>
+    }
+
+    private void copyFile(Path source, Path target) {
+        try {
+<span class="fc" id="L159">            Files.createDirectories(target.getParent());</span>
+<span class="fc" id="L160">            Files.copy(source, target, java.nio.file.StandardCopyOption.REPLACE_EXISTING);</span>
+<span class="nc" id="L161">        } catch (IOException e) {</span>
+<span class="nc" id="L162">            throw new IllegalStateException(&quot;Failed to copy file to &quot; + target, e);</span>
+<span class="fc" id="L163">        }</span>
+<span class="fc" id="L164">    }</span>
+
+    private String requireValue(String value, String fieldName) {
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">        if (value == null) {</span>
+<span class="nc" id="L168">            throw new IllegalArgumentException(fieldName + &quot; cannot be empty.&quot;);</span>
+        }
+<span class="fc" id="L170">        String trimmed = value.trim();</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">        if (trimmed.isEmpty()) {</span>
+<span class="fc" id="L172">            throw new IllegalArgumentException(fieldName + &quot; cannot be empty.&quot;);</span>
+        }
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        if (trimmed.contains(&quot;|&quot;)) {</span>
+<span class="fc" id="L175">            throw new IllegalArgumentException(fieldName + &quot; cannot contain the '|' character.&quot;);</span>
+        }
+<span class="fc" id="L177">        return trimmed;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

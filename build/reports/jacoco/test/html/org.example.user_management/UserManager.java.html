@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">A2</a> &gt; <a href="index.source.html" class="el_package">org.example.user_management</a> &gt; <span class="el_source">UserManager.java</span></div><h1>UserManager.java</h1><pre class="source lang-java linenums">package org.example.user_management;
+
+import java.util.List;
+import java.util.UUID;
+
+public class UserManager {
+    private static final String DEFAULT_ADMIN_USERNAME = &quot;admin&quot;;
+    private static final String DEFAULT_ADMIN_PASSWORD = &quot;admin123&quot;;
+
+    private final UserRepository repository;
+    private final PasswordHasher passwordHasher;
+
+<span class="fc" id="L13">    public UserManager(UserRepository repository, PasswordHasher passwordHasher) {</span>
+<span class="fc" id="L14">        this.repository = repository;</span>
+<span class="fc" id="L15">        this.passwordHasher = passwordHasher;</span>
+<span class="fc" id="L16">    }</span>
+
+    public void ensureDefaultAdmin() {
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        if (repository.hasAdmin()) {</span>
+<span class="fc" id="L20">            return;</span>
+        }
+<span class="fc" id="L22">        String hashedPassword = passwordHasher.hash(DEFAULT_ADMIN_PASSWORD);</span>
+<span class="fc" id="L23">        String adminCustomId = &quot;admin&quot;;</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (repository.findByCustomId(adminCustomId) != null) {</span>
+<span class="fc" id="L25">            adminCustomId = &quot;admin-&quot; + System.currentTimeMillis();</span>
+        }
+<span class="fc" id="L27">        User admin = new User(</span>
+                DEFAULT_ADMIN_USERNAME,
+                hashedPassword,
+                &quot;admin@example.com&quot;,
+                &quot;0000000000&quot;,
+                &quot;System Administrator&quot;,
+                adminCustomId,
+                UserType.ADMIN);
+<span class="fc" id="L35">        repository.save(admin);</span>
+<span class="fc" id="L36">    }</span>
+
+    public User registerGeneralUser(String username,
+                                    String password,
+                                    String email,
+                                    String phone,
+                                    String fullName,
+                                    String customId) {
+<span class="fc" id="L44">        return createUser(username, password, email, phone, fullName, customId, UserType.GENERAL);</span>
+    }
+
+    public User createUser(String username,
+                           String password,
+                           String email,
+                           String phone,
+                           String fullName,
+                           String customId,
+                           UserType userType) {
+<span class="fc" id="L54">        String safeUsername = requireValue(username, &quot;Username&quot;);</span>
+<span class="fc" id="L55">        String safePassword = requireValue(password, &quot;Password&quot;);</span>
+<span class="fc" id="L56">        String safeEmail = requireValue(email, &quot;Email&quot;);</span>
+<span class="fc" id="L57">        String safePhone = requireValue(phone, &quot;Phone&quot;);</span>
+<span class="fc" id="L58">        String safeFullName = requireValue(fullName, &quot;Full name&quot;);</span>
+<span class="fc" id="L59">        String safeCustomId = requireValue(customId, &quot;Custom ID&quot;);</span>
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (repository.findByUsername(safeUsername) != null) {</span>
+<span class="fc" id="L62">            throw new IllegalArgumentException(&quot;Username already exists.&quot;);</span>
+        }
+<span class="fc" id="L64">        User existingById = repository.findByCustomId(safeCustomId);</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (existingById != null) {</span>
+<span class="fc" id="L66">            throw new IllegalArgumentException(&quot;Custom ID must be unique.&quot;);</span>
+        }
+
+<span class="fc" id="L69">        String hashedPassword = passwordHasher.hash(safePassword);</span>
+<span class="fc" id="L70">        User newUser = new User(</span>
+                safeUsername,
+                hashedPassword,
+                safeEmail,
+                safePhone,
+                safeFullName,
+                safeCustomId,
+                userType);
+<span class="fc" id="L78">        repository.save(newUser);</span>
+<span class="fc" id="L79">        return newUser;</span>
+    }
+
+    public User login(String username, String password) {
+<span class="pc bpc" id="L83" title="2 of 4 branches missed.">        if (username == null || password == null) {</span>
+<span class="nc" id="L84">            return null;</span>
+        }
+<span class="fc" id="L86">        User found = repository.findByUsername(username.trim());</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (found == null) {</span>
+<span class="fc" id="L88">            return null;</span>
+        }
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if (passwordHasher.matches(password, found.getPasswordHash())) {</span>
+<span class="fc" id="L91">            return found;</span>
+        }
+<span class="fc" id="L93">        return null;</span>
+    }
+
+    public void updateEmail(User user, String email) {
+<span class="fc" id="L97">        String safe = requireValue(email, &quot;Email&quot;);</span>
+<span class="fc" id="L98">        user.setEmail(safe);</span>
+<span class="fc" id="L99">        repository.save(user);</span>
+<span class="fc" id="L100">    }</span>
+
+    public void updateFullName(User user, String fullName) {
+<span class="fc" id="L103">        String safe = requireValue(fullName, &quot;Full name&quot;);</span>
+<span class="fc" id="L104">        user.setFullName(safe);</span>
+<span class="fc" id="L105">        repository.save(user);</span>
+<span class="fc" id="L106">    }</span>
+
+    public void updatePhone(User user, String phone) {
+<span class="fc" id="L109">        String safe = requireValue(phone, &quot;Phone&quot;);</span>
+<span class="fc" id="L110">        user.setPhoneNumber(safe);</span>
+<span class="fc" id="L111">        repository.save(user);</span>
+<span class="fc" id="L112">    }</span>
+
+    public void changePassword(User user, String newPassword) {
+<span class="fc" id="L115">        String safe = requireValue(newPassword, &quot;Password&quot;);</span>
+<span class="fc" id="L116">        user.setPasswordHash(passwordHasher.hash(safe));</span>
+<span class="fc" id="L117">        repository.save(user);</span>
+<span class="fc" id="L118">    }</span>
+
+    public void updateCustomId(User user, String customId) {
+<span class="fc" id="L121">        String safe = requireValue(customId, &quot;Custom ID&quot;);</span>
+<span class="fc" id="L122">        User existing = repository.findByCustomId(safe);</span>
+<span class="pc bpc" id="L123" title="1 of 4 branches missed.">        if (existing != null &amp;&amp; !existing.getUsername().equals(user.getUsername())) {</span>
+<span class="fc" id="L124">            throw new IllegalArgumentException(&quot;Custom ID must be unique.&quot;);</span>
+        }
+<span class="fc" id="L126">        user.setCustomId(safe);</span>
+<span class="fc" id="L127">        repository.save(user);</span>
+<span class="fc" id="L128">    }</span>
+
+    public void updateProfilePicture(User user, String profilePicturePath) {
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (user == null) {</span>
+<span class="nc" id="L132">            return;</span>
+        }
+<span class="nc bnc" id="L134" title="All 4 branches missed.">        if (profilePicturePath == null || profilePicturePath.trim().isEmpty()) {</span>
+<span class="nc" id="L135">            user.setProfilePicturePath(null);</span>
+        } else {
+<span class="nc" id="L137">            String trimmed = profilePicturePath.trim();</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            if (trimmed.contains(&quot;|&quot;)) {</span>
+<span class="nc" id="L139">                throw new IllegalArgumentException(&quot;Profile picture path cannot contain the '|' character.&quot;);</span>
+            }
+<span class="nc" id="L141">            user.setProfilePicturePath(trimmed);</span>
+        }
+<span class="nc" id="L143">        repository.save(user);</span>
+<span class="nc" id="L144">    }</span>
+
+    public List&lt;User&gt; getAllUsers() {
+<span class="fc" id="L147">        return repository.getAllUsers();</span>
+    }
+
+    public void deleteUser(String username) {
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        if (username == null) {</span>
+<span class="fc" id="L152">            throw new IllegalArgumentException(&quot;Username is required.&quot;);</span>
+        }
+<span class="fc" id="L154">        User target = repository.findByUsername(username.trim());</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">        if (target == null) {</span>
+<span class="fc" id="L156">            throw new IllegalArgumentException(&quot;User not found.&quot;);</span>
+        }
+<span class="fc bfc" id="L158" title="All 2 branches covered.">        if (target.getUserType() == UserType.ADMIN) {</span>
+<span class="fc" id="L159">            throw new IllegalArgumentException(&quot;Cannot delete admin users.&quot;);</span>
+        }
+<span class="fc" id="L161">        repository.delete(target.getUsername());</span>
+<span class="fc" id="L162">    }</span>
+
+    public User createGuestUser() {
+<span class="fc" id="L165">        String guestId = &quot;guest-&quot; + UUID.randomUUID().toString().substring(0, 8);</span>
+<span class="fc" id="L166">        return new User(</span>
+                &quot;guest&quot;,
+                &quot;&quot;,
+                &quot;&quot;,
+                &quot;&quot;,
+                &quot;Guest User&quot;,
+                guestId,
+                UserType.GUEST);
+    }
+
+    private String requireValue(String value, String fieldName) {
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">        if (value == null) {</span>
+<span class="nc" id="L178">            throw new IllegalArgumentException(fieldName + &quot; cannot be empty.&quot;);</span>
+        }
+<span class="fc" id="L180">        String trimmed = value.trim();</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">        if (trimmed.isEmpty()) {</span>
+<span class="fc" id="L182">            throw new IllegalArgumentException(fieldName + &quot; cannot be empty.&quot;);</span>
+        }
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">        if (trimmed.contains(&quot;|&quot;)) {</span>
+<span class="nc" id="L185">            throw new IllegalArgumentException(fieldName + &quot; cannot contain the '|' character.&quot;);</span>
+        }
+<span class="fc" id="L187">        return trimmed;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
