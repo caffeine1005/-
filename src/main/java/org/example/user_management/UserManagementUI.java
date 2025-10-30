@@ -103,6 +103,7 @@ public class UserManagementUI {
             String fullName = prompt("Full name: ");
             String customId = prompt("Custom ID: ");
             currentUser = userManager.registerGeneralUser(username, password, email, phone, fullName, customId);
+            updateProfilePicture();
             System.out.println("Registration successful. You are now logged in.");
             accountMenu();
         } catch (IllegalArgumentException ex) {
