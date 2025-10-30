@@ -16,6 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import java.io.Console;
 
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -80,7 +83,7 @@ public class UserManagementUI {
 
     private void handleLogin() {
         String username = prompt("Username: ");
-        String password = prompt("Password: ");
+        String password = promptPassword("Password: ");
         User loggedIn = userManager.login(username, password);
         if (loggedIn == null) {
             System.out.println("Login failed. Please check your details.");
@@ -94,7 +97,7 @@ public class UserManagementUI {
     private void handleRegistration() {
         try {
             String username = prompt("Choose a username: ");
-            String password = prompt("Choose a password: ");
+            String password = promptPassword("Choose a password: ");
             String email = prompt("Email: ");
             String phone = prompt("Phone number: ");
             String fullName = prompt("Full name: ");
@@ -640,5 +643,49 @@ public class UserManagementUI {
             return null;
         }
         return selectedPath[0];
+    }
+
+    private String promptPassword(String message) {
+        Console console = System.console();
+        if (console != null) {
+            console.format("%s", message);
+            console.flush();
+            char[] pwd = console.readPassword();
+            return pwd == null ? "" : new String(pwd);
+        }
+
+        if (!GraphicsEnvironment.isHeadless()) {
+            final String[] result = new String[1];
+            final CountDownLatch latch = new CountDownLatch(1);
+            SwingUtilities.invokeLater(() -> {
+                JPasswordField pf = new JPasswordField(25);
+                JPanel panel = new JPanel(new BorderLayout(5, 5));
+                panel.add(new JLabel(message), BorderLayout.WEST);
+                panel.add(pf, BorderLayout.CENTER);
+                int option = JOptionPane.showConfirmDialog(
+                        null,
+                        panel,
+                        "Enter Password",
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.PLAIN_MESSAGE
+                );
+                if (option == JOptionPane.OK_OPTION) {
+                    result[0] = new String(pf.getPassword());
+                } else {
+                    result[0] = "";
+                }
+                latch.countDown();
+            });
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return "";
+            }
+            return result[0] == null ? "" : result[0];
+        }
+
+        System.out.println("(Warning) Cannot hide input in this environment.");
+        return prompt(message);
     }
 }
