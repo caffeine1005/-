@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="UserManagementUISupportTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:02:20.265Z" hostname="MAIN-DESKTOP" time="0.169">
+<testsuite name="UserManagementUISupportTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:40:20.875Z" hostname="MAIN-DESKTOP" time="0.16">
   <properties/>
-  <testcase name="guestMenuHandlesInvalidChoice()" classname="UserManagementUISupportTest" time="0.019"/>
+  <testcase name="guestMenuHandlesInvalidChoice()" classname="UserManagementUISupportTest" time="0.016"/>
   <testcase name="editScrollUpdatesNameWithoutReplacingFile()" classname="UserManagementUISupportTest" time="0.013"/>
-  <testcase name="handleLoginFailsWithInvalidCredentials()" classname="UserManagementUISupportTest" time="0.009"/>
+  <testcase name="handleLoginFailsWithInvalidCredentials()" classname="UserManagementUISupportTest" time="0.007"/>
   <testcase name="addScrollRequiresCurrentUser()" classname="UserManagementUISupportTest" time="0.007"/>
   <testcase name="startHandlesClosedInputGracefully()" classname="UserManagementUISupportTest" time="0.008"/>
-  <testcase name="addScrollCancelsWhenNoFileSelected()" classname="UserManagementUISupportTest" time="0.009"/>
-  <testcase name="chooseFileHeadlessReturnsManualPath()" classname="UserManagementUISupportTest" time="0.007"/>
-  <testcase name="addScrollUploadsFileSuccessfully()" classname="UserManagementUISupportTest" time="0.013"/>
-  <testcase name="userScrollMenuShowsMessageForInvalidChoice()" classname="UserManagementUISupportTest" time="0.009"/>
-  <testcase name="updateOperationsAreNoOpsWithoutUser()" classname="UserManagementUISupportTest" time="0.007"/>
-  <testcase name="updateFullNameHandlesValidationError()" classname="UserManagementUISupportTest" time="0.008"/>
-  <testcase name="getDisplayNameFallsBackToUsername()" classname="UserManagementUISupportTest" time="0.006"/>
-  <testcase name="accountMenuHandlesInvalidOption()" classname="UserManagementUISupportTest" time="0.008"/>
-  <testcase name="removeScrollDeletesOwnedScroll()" classname="UserManagementUISupportTest" time="0.014"/>
-  <testcase name="chooseFileHeadlessCancellationReturnsNull()" classname="UserManagementUISupportTest" time="0.006"/>
-  <testcase name="editScrollCancelsWhenReplacementMissing()" classname="UserManagementUISupportTest" time="0.011"/>
-  <testcase name="readUserTypeRetriesUntilValid()" classname="UserManagementUISupportTest" time="0.006"/>
+  <testcase name="addScrollCancelsWhenNoFileSelected()" classname="UserManagementUISupportTest" time="0.008"/>
+  <testcase name="chooseFileHeadlessReturnsManualPath()" classname="UserManagementUISupportTest" time="0.006"/>
+  <testcase name="addScrollUploadsFileSuccessfully()" classname="UserManagementUISupportTest" time="0.012"/>
+  <testcase name="userScrollMenuShowsMessageForInvalidChoice()" classname="UserManagementUISupportTest" time="0.008"/>
+  <testcase name="updateOperationsAreNoOpsWithoutUser()" classname="UserManagementUISupportTest" time="0.006"/>
+  <testcase name="updateFullNameHandlesValidationError()" classname="UserManagementUISupportTest" time="0.007"/>
+  <testcase name="getDisplayNameFallsBackToUsername()" classname="UserManagementUISupportTest" time="0.007"/>
+  <testcase name="accountMenuHandlesInvalidOption()" classname="UserManagementUISupportTest" time="0.007"/>
+  <testcase name="removeScrollDeletesOwnedScroll()" classname="UserManagementUISupportTest" time="0.013"/>
+  <testcase name="chooseFileHeadlessCancellationReturnsNull()" classname="UserManagementUISupportTest" time="0.008"/>
+  <testcase name="editScrollCancelsWhenReplacementMissing()" classname="UserManagementUISupportTest" time="0.012"/>
+  <testcase name="readUserTypeRetriesUntilValid()" classname="UserManagementUISupportTest" time="0.007"/>
   <system-out><![CDATA[Scroll ID to edit: New name (leave blank to keep current): Replace binary file? (y/n): Scroll updated.
 GUI file chooser is not available. Please type the file path.
 File path (leave blank to cancel): Scroll name: GUI file chooser is not available. Please type the file path.

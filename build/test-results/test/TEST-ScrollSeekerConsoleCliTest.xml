@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ScrollSeekerConsoleCliTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:02:20.035Z" hostname="MAIN-DESKTOP" time="0.033">
+<testsuite name="ScrollSeekerConsoleCliTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:40:20.665Z" hostname="MAIN-DESKTOP" time="0.032">
   <properties/>
-  <testcase name="allowDownloadFlowCoversPreviewAndFilters()" classname="ScrollSeekerConsoleCliTest" time="0.026"/>
-  <testcase name="guestsCannotDownload()" classname="ScrollSeekerConsoleCliTest" time="0.006"/>
+  <testcase name="allowDownloadFlowCoversPreviewAndFilters()" classname="ScrollSeekerConsoleCliTest" time="0.027"/>
+  <testcase name="guestsCannotDownload()" classname="ScrollSeekerConsoleCliTest" time="0.005"/>
   <system-out><![CDATA[--------------------------------------
 Scroll seeker
 1. View scrolls
@@ -10,7 +10,7 @@ Scroll seeker
 3. Search filters
 4. Preview scroll
 5. Return
-Select an option: ID=SC0001 | Name=Fireball | Owner=mage | Uploaded=2025-10-30T15:02:20.040758900
+Select an option: ID=SC0001 | Name=Fireball | Owner=mage | Uploaded=2025-10-30T15:40:20.669448
 --------------------------------------
 Scroll seeker
 1. View scrolls
@@ -18,7 +18,7 @@ Scroll seeker
 3. Search filters
 4. Preview scroll
 5. Return
-Select an option: Scroll ID to download: Save as (full path, leave blank to cancel): Download completed: C:\Users\yukiw\AppData\Local\Temp\junit2665474761722632919\download.bin
+Select an option: Scroll ID to download: Save as (full path, leave blank to cancel): Download completed: C:\Users\yukiw\AppData\Local\Temp\junit8433265585668541030\download.bin
 --------------------------------------
 Scroll seeker
 1. View scrolls
@@ -26,7 +26,7 @@ Scroll seeker
 3. Search filters
 4. Preview scroll
 5. Return
-Select an option: Filter uploader (leave blank for ANY): Filter scroll ID (leave blank for ANY): Filter name (leave blank for ANY): Filter upload date (yyyy-mm-dd, blank for ANY): ID=SC0001 | Name=Fireball | Owner=mage | Uploaded=2025-10-30T15:02:20.040758900
+Select an option: Filter uploader (leave blank for ANY): Filter scroll ID (leave blank for ANY): Filter name (leave blank for ANY): Filter upload date (yyyy-mm-dd, blank for ANY): ID=SC0001 | Name=Fireball | Owner=mage | Uploaded=2025-10-30T15:40:20.669448
 --------------------------------------
 Scroll seeker
 1. View scrolls

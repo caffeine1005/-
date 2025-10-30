@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ScrollSeekerServiceTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:02:20.096Z" hostname="MAIN-DESKTOP" time="0.092">
+<testsuite name="ScrollSeekerServiceTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:40:20.726Z" hostname="MAIN-DESKTOP" time="0.093">
   <properties/>
-  <testcase name="downloadCreatesDirectories()" classname="ScrollSeekerServiceTest" time="0.012"/>
+  <testcase name="downloadCreatesDirectories()" classname="ScrollSeekerServiceTest" time="0.011"/>
   <testcase name="filterIsCaseInsensitive()" classname="ScrollSeekerServiceTest" time="0.009"/>
   <testcase name="previewHandlesMissingFile()" classname="ScrollSeekerServiceTest" time="0.009"/>
-  <testcase name="filterPreviewAndDownloadScroll()" classname="ScrollSeekerServiceTest" time="0.013"/>
+  <testcase name="filterPreviewAndDownloadScroll()" classname="ScrollSeekerServiceTest" time="0.011"/>
   <testcase name="previewShowsFailureMessageWhenUnreadable()" classname="ScrollSeekerServiceTest" time="0.01"/>
   <testcase name="filterByNameAndDate()" classname="ScrollSeekerServiceTest" time="0.008"/>
   <testcase name="filterRejectsMismatchedIdAndName()" classname="ScrollSeekerServiceTest" time="0.008"/>
   <testcase name="previewFormatsMultipleHexLines()" classname="ScrollSeekerServiceTest" time="0.01"/>
-  <testcase name="previewShowsEmptyFileMessage()" classname="ScrollSeekerServiceTest" time="0.009"/>
+  <testcase name="previewShowsEmptyFileMessage()" classname="ScrollSeekerServiceTest" time="0.011"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -41,7 +41,7 @@ class UserManagerTest {
         manager.ensureDefaultAdmin();
 
         User user = manager.registerGeneralUser("zeyuan", "secret123", "z@example.com",
-                "123456789", "Zeyuan Z", "ZEY-01");
+                "0461567890", "Zeyuan Z", "ZEY-01");
         assertEquals("Zeyuan Z", user.getFullName());
         assertEquals("ZEY-01", user.getCustomId());
 
@@ -50,13 +50,13 @@ class UserManagerTest {
 
         manager.updateFullName(user, "New Name");
         manager.updateEmail(user, "new@example.com");
-        manager.updatePhone(user, "987654321");
+        manager.updatePhone(user, "0461543210");
         manager.changePassword(user, "newPass!");
         manager.updateCustomId(user, "ZEY-02");
 
         assertEquals("New Name", user.getFullName());
         assertEquals("new@example.com", user.getEmail());
-        assertEquals("987654321", user.getPhoneNumber());
+        assertEquals("0461543210", user.getPhoneNumber());
         assertNotNull(manager.login("zeyuan", "newPass!"));
         assertEquals("ZEY-02", user.getCustomId());
 
@@ -68,10 +68,10 @@ class UserManagerTest {
     @Test
     void createUserRejectsDuplicates() {
         UserManager manager = createManager();
-        manager.registerGeneralUser("alpha", "pass123", "a@example.com", "111", "Alpha", "A-1");
+        manager.registerGeneralUser("alpha", "pass123", "a@example.com", "0461111111", "Alpha", "A-1");
 
         assertThrows(IllegalArgumentException.class,
-                () -> manager.registerGeneralUser("alpha", "pass123", "b@example.com", "222", "Beta", "B-1"));
+                () -> manager.registerGeneralUser("alpha", "pass123", "b@example.com", "0461222222", "Beta", "B-1"));
         assertThrows(IllegalArgumentException.class,
                 () -> manager.registerGeneralUser("beta", "pass123", "b@example.com", "222", "Beta", "A-1"));
     }
@@ -88,7 +88,7 @@ class UserManagerTest {
     void deleteUserRemovesNonAdmin() throws Exception {
         UserManager manager = createManager();
         manager.ensureDefaultAdmin();
-        manager.registerGeneralUser("normal", "pass123", "n@example.com", "000", "Normal User", "N-1");
+        manager.registerGeneralUser("normal", "pass123", "n@example.com", "0461000000", "Normal User", "N-1");
 
         manager.deleteUser("normal");
 
@@ -101,15 +101,15 @@ class UserManagerTest {
     @Test
     void updateFullNameRejectsBlank() {
         UserManager manager = createManager();
-        User user = manager.registerGeneralUser("u1", "password", "a@b.com", "111", "Alpha", "ID-1");
+        User user = manager.registerGeneralUser("u1", "password", "a@b.com", "0461111111", "Alpha", "ID-1");
         assertThrows(IllegalArgumentException.class, () -> manager.updateFullName(user, "  "));
     }
 
     @Test
     void updateCustomIdRejectsExistingId() {
         UserManager manager = createManager();
-        manager.registerGeneralUser("user1", "password", "u1@a.com", "111", "User One", "ID-1");
-        User user2 = manager.registerGeneralUser("user2", "password", "u2@a.com", "222", "User Two", "ID-2");
+        manager.registerGeneralUser("user1", "password", "u1@a.com", "0461111111", "User One", "ID-1");
+        User user2 = manager.registerGeneralUser("user2", "password", "u2@a.com", "0461222222", "User Two", "ID-2");
 
         assertThrows(IllegalArgumentException.class, () -> manager.updateCustomId(user2, "ID-1"));
         assertEquals("ID-2", user2.getCustomId());
@@ -118,17 +118,17 @@ class UserManagerTest {
     @Test
     void loginTrimsWhitespace() {
         UserManager manager = createManager();
-        manager.registerGeneralUser("alice", "password", "a@b.com", "111", "Alice", "AL-1");
+        manager.registerGeneralUser("alice", "password", "a@b.com", "0461111111", "Alice", "AL-1");
         assertNotNull(manager.login(" alice ", "password"));
     }
 
     @Test
     void registerGeneralUserTrimsInputs() {
         UserManager manager = createManager();
-        User user = manager.registerGeneralUser(" bob ", "password", " b@c.com ", " 333 ", " Bob B ", " BB-1 ");
+        User user = manager.registerGeneralUser(" bob ", "password", " b@c.com ", " 0461333333 ", " Bob B ", " BB-1 ");
         assertEquals("bob", user.getUsername());
         assertEquals("b@c.com", user.getEmail());
-        assertEquals("333", user.getPhoneNumber());
+        assertEquals("0461333333", user.getPhoneNumber());
         assertEquals("Bob B", user.getFullName());
         assertEquals("BB-1", user.getCustomId());
     }
@@ -136,7 +136,7 @@ class UserManagerTest {
     @Test
     void changePasswordRejectsEmpty() {
         UserManager manager = createManager();
-        User user = manager.registerGeneralUser("short", "initial1", "s@c.com", "444", "Shorty", "SH-1");
+        User user = manager.registerGeneralUser("short", "initial1", "s@c.com", "0461444444", "Shorty", "SH-1");
         assertThrows(IllegalArgumentException.class, () -> manager.changePassword(user, " "));
     }
 

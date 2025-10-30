@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="UserRepositoryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:02:20.502Z" hostname="MAIN-DESKTOP" time="0.009">
+<testsuite name="UserRepositoryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:40:21.105Z" hostname="MAIN-DESKTOP" time="0.01">
   <properties/>
   <testcase name="loadLegacyAndInvalidEntries()" classname="UserRepositoryTest" time="0.004"/>
   <testcase name="saveAndDeletePersistData()" classname="UserRepositoryTest" time="0.005"/>

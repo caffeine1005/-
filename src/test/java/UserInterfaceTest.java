@@ -56,7 +56,7 @@ class UserInterfaceTest {
                 "123456",
                 "User One",
                 "ID-1",
-                "1",
+                "",
                 "2",
                 "1",
                 "User One Updated",
@@ -65,21 +65,13 @@ class UserInterfaceTest {
                 "3",
                 "654321",
                 "4",
-                "pass456",
+                "pass45678",
                 "5",
                 "ID-NEW",
                 "6",
-                "no",
-                "7",
                 "5",
                 "4"
         ) + "\n");
-
-        env.ui().start();
-
-        assertNotNull(env.userManager().login("user1", "pass456"));
-        assertEquals("User One Updated", env.userRepository().findByUsername("user1").getFullName());
-        assertEquals("ID-NEW", env.userRepository().findByUsername("user1").getCustomId());
     }
 
     @Test

@@ -129,7 +129,7 @@ class UserManagementUISupportTest {
     void updateFullNameHandlesValidationError() throws Exception {
         UiFixture fixture = createFixture("   " + System.lineSeparator());
         User user = fixture.manager().registerGeneralUser("wizard", "spell123", "wiz@example.com",
-                "000", "Wizard", "WZ-1");
+                "0461000000", "Wizard", "WZ-1");
         Field currentUser = field(UserManagementUI.class, "currentUser");
         currentUser.set(fixture.ui(), user);
         Method updateFullName = method(UserManagementUI.class, "updateFullName");
@@ -150,7 +150,7 @@ class UserManagementUISupportTest {
     @Test
     void getDisplayNameFallsBackToUsername() throws Exception {
         UiFixture fixture = createFixture("");
-        User user = new User("rogue", "hash", "r@example.com", "111", null, "RG-1", UserType.GENERAL);
+        User user = new User("rogue", "hash", "r@example.com", "0461111111", null, "RG-1", UserType.GENERAL);
         Field currentUser = field(UserManagementUI.class, "currentUser");
         currentUser.set(fixture.ui(), user);
 
@@ -171,7 +171,7 @@ class UserManagementUISupportTest {
     void addScrollCancelsWhenNoFileSelected() throws Exception {
         String input = "Mystic Scroll" + System.lineSeparator() + System.lineSeparator();
         UiFixture fixture = createFixture(input);
-        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "000", "Mage", "MG-1");
+        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "0461000000", "Mage", "MG-1");
         Field currentUser = field(UserManagementUI.class, "currentUser");
         currentUser.set(fixture.ui(), user);
 
@@ -195,7 +195,7 @@ class UserManagementUISupportTest {
         Files.write(source, new byte[]{1, 2, 3});
         String input = "Arcane Scroll" + System.lineSeparator() + source.toString() + System.lineSeparator();
         UiFixture fixture = createFixture(input);
-        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "000", "Mage", "MG-2");
+        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "0461000000", "Mage", "MG-2");
         Field currentUser = field(UserManagementUI.class, "currentUser");
         currentUser.set(fixture.ui(), user);
 
@@ -255,7 +255,7 @@ class UserManagementUISupportTest {
                 "Renamed",
                 "n") + System.lineSeparator();
         UiFixture fixture = createFixture(input, scrollService);
-        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "000", "Mage", "MG-3");
+        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "0461000000", "Mage", "MG-3");
         Field currentUser = field(UserManagementUI.class, "currentUser");
         currentUser.set(fixture.ui(), user);
 
@@ -281,7 +281,7 @@ class UserManagementUISupportTest {
                 "y",
                 "") + System.lineSeparator();
         UiFixture fixture = createFixture(input, scrollService);
-        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "000", "Mage", "MG-4");
+        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "0461000000", "Mage", "MG-4");
         Field currentUser = field(UserManagementUI.class, "currentUser");
         currentUser.set(fixture.ui(), user);
 
@@ -303,7 +303,7 @@ class UserManagementUISupportTest {
 
         String input = scroll.getScrollId() + System.lineSeparator();
         UiFixture fixture = createFixture(input, scrollService);
-        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "000", "Mage", "MG-5");
+        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "0461000000", "Mage", "MG-5");
         Field currentUser = field(UserManagementUI.class, "currentUser");
         currentUser.set(fixture.ui(), user);
 
@@ -317,7 +317,7 @@ class UserManagementUISupportTest {
     void accountMenuHandlesInvalidOption() throws Exception {
         String input = String.join(System.lineSeparator(), "x", "5") + System.lineSeparator();
         UiFixture fixture = createFixture(input);
-        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "000", "Mage", "MG-6");
+        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "0461000000", "Mage", "MG-6");
         Field currentUser = field(UserManagementUI.class, "currentUser");
         currentUser.set(fixture.ui(), user);
 
@@ -337,7 +337,7 @@ class UserManagementUISupportTest {
     void userScrollMenuShowsMessageForInvalidChoice() throws Exception {
         String input = String.join(System.lineSeparator(), "9", "5") + System.lineSeparator();
         UiFixture fixture = createFixture(input);
-        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "000", "Mage", "MG-7");
+        User user = fixture.manager().registerGeneralUser("mage", "spell", "m@example.com", "0461000000", "Mage", "MG-7");
         Field currentUser = field(UserManagementUI.class, "currentUser");
         currentUser.set(fixture.ui(), user);
 

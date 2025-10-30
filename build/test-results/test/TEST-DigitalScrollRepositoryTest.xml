@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="DigitalScrollRepositoryTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:02:19.821Z" hostname="MAIN-DESKTOP" time="0.062">
+<testsuite name="DigitalScrollRepositoryTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:40:20.455Z" hostname="MAIN-DESKTOP" time="0.061">
   <properties/>
-  <testcase name="findByIdReturnsNullWhenMissing()" classname="DigitalScrollRepositoryTest" time="0.012"/>
-  <testcase name="loadNewFormatWithCounts()" classname="DigitalScrollRepositoryTest" time="0.019"/>
-  <testcase name="loadOldFormatWithoutCounts()" classname="DigitalScrollRepositoryTest" time="0.006"/>
-  <testcase name="saveAndLoadScrolls()" classname="DigitalScrollRepositoryTest" time="0.007"/>
+  <testcase name="findByIdReturnsNullWhenMissing()" classname="DigitalScrollRepositoryTest" time="0.011"/>
+  <testcase name="loadNewFormatWithCounts()" classname="DigitalScrollRepositoryTest" time="0.018"/>
+  <testcase name="loadOldFormatWithoutCounts()" classname="DigitalScrollRepositoryTest" time="0.007"/>
+  <testcase name="saveAndLoadScrolls()" classname="DigitalScrollRepositoryTest" time="0.006"/>
   <testcase name="parseTimestampHandlesInvalidInput()" classname="DigitalScrollRepositoryTest" time="0.005"/>
   <testcase name="deleteRemovesScroll()" classname="DigitalScrollRepositoryTest" time="0.005"/>
-  <testcase name="generateIdProducesSequentialValues()" classname="DigitalScrollRepositoryTest" time="0.002"/>
+  <testcase name="generateIdProducesSequentialValues()" classname="DigitalScrollRepositoryTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

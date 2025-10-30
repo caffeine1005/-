@@ -66,9 +66,9 @@ public class UserManagementUI {
 <span class="fc" id="L66">        System.out.println(&quot;3. Continue as guest&quot;);</span>
 <span class="fc" id="L67">        System.out.println(&quot;4. Exit&quot;);</span>
 <span class="fc" id="L68">        String choice = prompt(&quot;Select an option: &quot;);</span>
-<span class="pc bpc" id="L69" title="1 of 5 branches missed.">        switch (choice) {</span>
+<span class="pc bpc" id="L69" title="2 of 5 branches missed.">        switch (choice) {</span>
 <span class="fc" id="L70">            case &quot;1&quot; -&gt; handleLogin();</span>
-<span class="fc" id="L71">            case &quot;2&quot; -&gt; handleRegistration();</span>
+<span class="nc" id="L71">            case &quot;2&quot; -&gt; handleRegistration();</span>
 <span class="fc" id="L72">            case &quot;3&quot; -&gt; handleGuest();</span>
             case &quot;4&quot; -&gt; {
 <span class="fc" id="L74">                running = false;</span>
@@ -93,19 +93,19 @@ public class UserManagementUI {
 
     private void handleRegistration() {
         try {
-<span class="fc" id="L96">            String username = prompt(&quot;Choose a username: &quot;);</span>
-<span class="fc" id="L97">            String password = prompt(&quot;Choose a password: &quot;);</span>
-<span class="fc" id="L98">            String email = prompt(&quot;Email: &quot;);</span>
-<span class="fc" id="L99">            String phone = prompt(&quot;Phone number: &quot;);</span>
-<span class="fc" id="L100">            String fullName = prompt(&quot;Full name: &quot;);</span>
-<span class="fc" id="L101">            String customId = prompt(&quot;Custom ID: &quot;);</span>
-<span class="fc" id="L102">            currentUser = userManager.registerGeneralUser(username, password, email, phone, fullName, customId);</span>
-<span class="fc" id="L103">            System.out.println(&quot;Registration successful. You are now logged in.&quot;);</span>
-<span class="fc" id="L104">            accountMenu();</span>
+<span class="nc" id="L96">            String username = prompt(&quot;Choose a username: &quot;);</span>
+<span class="nc" id="L97">            String password = prompt(&quot;Choose a password: &quot;);</span>
+<span class="nc" id="L98">            String email = prompt(&quot;Email: &quot;);</span>
+<span class="nc" id="L99">            String phone = prompt(&quot;Phone number: &quot;);</span>
+<span class="nc" id="L100">            String fullName = prompt(&quot;Full name: &quot;);</span>
+<span class="nc" id="L101">            String customId = prompt(&quot;Custom ID: &quot;);</span>
+<span class="nc" id="L102">            currentUser = userManager.registerGeneralUser(username, password, email, phone, fullName, customId);</span>
+<span class="nc" id="L103">            System.out.println(&quot;Registration successful. You are now logged in.&quot;);</span>
+<span class="nc" id="L104">            accountMenu();</span>
 <span class="nc" id="L105">        } catch (IllegalArgumentException ex) {</span>
 <span class="nc" id="L106">            System.out.println(&quot;Registration failed: &quot; + ex.getMessage());</span>
-<span class="fc" id="L107">        }</span>
-<span class="fc" id="L108">    }</span>
+<span class="nc" id="L107">        }</span>
+<span class="nc" id="L108">    }</span>
 
     private void handleGuest() {
 <span class="fc" id="L111">        currentUser = userManager.createGuestUser();</span>
@@ -125,9 +125,9 @@ public class UserManagementUI {
 <span class="fc" id="L125">            System.out.println(&quot;4. View &amp; download scrolls&quot;);</span>
 <span class="fc" id="L126">            System.out.println(&quot;5. Return&quot;);</span>
 <span class="fc" id="L127">            String choice = prompt(&quot;Select an option: &quot;);</span>
-<span class="pc bpc" id="L128" title="1 of 6 branches missed.">            switch (choice) {</span>
-<span class="fc" id="L129">                case &quot;1&quot; -&gt; showProfile();</span>
-<span class="fc" id="L130">                case &quot;2&quot; -&gt; updateProfileMenu();</span>
+<span class="pc bpc" id="L128" title="3 of 6 branches missed.">            switch (choice) {</span>
+<span class="nc" id="L129">                case &quot;1&quot; -&gt; showProfile();</span>
+<span class="nc" id="L130">                case &quot;2&quot; -&gt; updateProfileMenu();</span>
 <span class="fc" id="L131">                case &quot;3&quot; -&gt; scrollManagementMenu();</span>
 <span class="nc" id="L132">                case &quot;4&quot; -&gt; scrollSeekerConsole.viewAndDownloadMenu(true);</span>
                 case &quot;5&quot; -&gt; {
@@ -144,33 +144,33 @@ public class UserManagementUI {
 <span class="fc" id="L144">    }</span>
 
     private void updateProfileMenu() {
-<span class="pc bpc" id="L147" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (currentUser == null) {</span>
 <span class="nc" id="L148">            return;</span>
         }
-<span class="fc" id="L150">        boolean stay = true;</span>
-<span class="fc bfc" id="L151" title="All 2 branches covered.">        while (stay) {</span>
-<span class="fc" id="L152">            System.out.println(&quot;--------------------------------------&quot;);</span>
-<span class="fc" id="L153">            System.out.println(&quot;Update profile (&quot; + getDisplayName() + &quot;)&quot;);</span>
-<span class="fc" id="L154">            System.out.println(&quot;1. Update full name&quot;);</span>
-<span class="fc" id="L155">            System.out.println(&quot;2. Update email&quot;);</span>
-<span class="fc" id="L156">            System.out.println(&quot;3. Update phone&quot;);</span>
-<span class="fc" id="L157">            System.out.println(&quot;4. Change password&quot;);</span>
-<span class="fc" id="L158">            System.out.println(&quot;5. Update custom ID&quot;);</span>
-<span class="fc" id="L159">            System.out.println(&quot;6. Update profile picture&quot;);</span>
-<span class="fc" id="L160">            System.out.println(&quot;7. Return&quot;);</span>
-<span class="fc" id="L161">            String choice = prompt(&quot;Select an option: &quot;);</span>
-<span class="pc bpc" id="L162" title="1 of 8 branches missed.">            switch (choice) {</span>
-<span class="fc" id="L163">                case &quot;1&quot; -&gt; updateFullName();</span>
-<span class="fc" id="L164">                case &quot;2&quot; -&gt; updateEmail();</span>
-<span class="fc" id="L165">                case &quot;3&quot; -&gt; updatePhone();</span>
-<span class="fc" id="L166">                case &quot;4&quot; -&gt; updatePassword();</span>
-<span class="fc" id="L167">                case &quot;5&quot; -&gt; updateCustomId();</span>
-<span class="fc" id="L168">                case &quot;6&quot; -&gt; updateProfilePicture();</span>
-<span class="fc" id="L169">                case &quot;7&quot; -&gt; stay = false;</span>
+<span class="nc" id="L150">        boolean stay = true;</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">        while (stay) {</span>
+<span class="nc" id="L152">            System.out.println(&quot;--------------------------------------&quot;);</span>
+<span class="nc" id="L153">            System.out.println(&quot;Update profile (&quot; + getDisplayName() + &quot;)&quot;);</span>
+<span class="nc" id="L154">            System.out.println(&quot;1. Update full name&quot;);</span>
+<span class="nc" id="L155">            System.out.println(&quot;2. Update email&quot;);</span>
+<span class="nc" id="L156">            System.out.println(&quot;3. Update phone&quot;);</span>
+<span class="nc" id="L157">            System.out.println(&quot;4. Change password&quot;);</span>
+<span class="nc" id="L158">            System.out.println(&quot;5. Update custom ID&quot;);</span>
+<span class="nc" id="L159">            System.out.println(&quot;6. Update profile picture&quot;);</span>
+<span class="nc" id="L160">            System.out.println(&quot;7. Return&quot;);</span>
+<span class="nc" id="L161">            String choice = prompt(&quot;Select an option: &quot;);</span>
+<span class="nc bnc" id="L162" title="All 8 branches missed.">            switch (choice) {</span>
+<span class="nc" id="L163">                case &quot;1&quot; -&gt; updateFullName();</span>
+<span class="nc" id="L164">                case &quot;2&quot; -&gt; updateEmail();</span>
+<span class="nc" id="L165">                case &quot;3&quot; -&gt; updatePhone();</span>
+<span class="nc" id="L166">                case &quot;4&quot; -&gt; updatePassword();</span>
+<span class="nc" id="L167">                case &quot;5&quot; -&gt; updateCustomId();</span>
+<span class="nc" id="L168">                case &quot;6&quot; -&gt; updateProfilePicture();</span>
+<span class="nc" id="L169">                case &quot;7&quot; -&gt; stay = false;</span>
 <span class="nc" id="L170">                default -&gt; System.out.println(&quot;Invalid option, please try again.&quot;);</span>
             }
-<span class="fc" id="L172">        }</span>
-<span class="fc" id="L173">    }</span>
+<span class="nc" id="L172">        }</span>
+<span class="nc" id="L173">    }</span>
 
     private void scrollManagementMenu() {
 <span class="pc bpc" id="L176" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
@@ -254,22 +254,22 @@ public class UserManagementUI {
 <span class="fc" id="L254">    }</span>
 
     private void showProfile() {
-<span class="fc bfc" id="L257" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="pc bpc" id="L257" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
 <span class="fc" id="L258">            return;</span>
         }
-<span class="fc" id="L260">        System.out.println(&quot;Username: &quot; + currentUser.getUsername());</span>
-<span class="fc" id="L261">        System.out.println(&quot;Full name: &quot; + currentUser.getFullName());</span>
-<span class="fc" id="L262">        System.out.println(&quot;Email: &quot; + currentUser.getEmail());</span>
-<span class="fc" id="L263">        System.out.println(&quot;Phone: &quot; + currentUser.getPhoneNumber());</span>
-<span class="fc" id="L264">        System.out.println(&quot;Custom ID: &quot; + currentUser.getCustomId());</span>
-<span class="fc" id="L265">        System.out.println(&quot;User type: &quot; + currentUser.getUserType().name().toLowerCase());</span>
-<span class="fc" id="L266">        String picturePath = currentUser.getProfilePicturePath();</span>
-<span class="pc bpc" id="L267" title="3 of 4 branches missed.">        if (picturePath == null || picturePath.isBlank()) {</span>
-<span class="fc" id="L268">            System.out.println(&quot;Profile picture: not set&quot;);</span>
+<span class="nc" id="L260">        System.out.println(&quot;Username: &quot; + currentUser.getUsername());</span>
+<span class="nc" id="L261">        System.out.println(&quot;Full name: &quot; + currentUser.getFullName());</span>
+<span class="nc" id="L262">        System.out.println(&quot;Email: &quot; + currentUser.getEmail());</span>
+<span class="nc" id="L263">        System.out.println(&quot;Phone: &quot; + currentUser.getPhoneNumber());</span>
+<span class="nc" id="L264">        System.out.println(&quot;Custom ID: &quot; + currentUser.getCustomId());</span>
+<span class="nc" id="L265">        System.out.println(&quot;User type: &quot; + currentUser.getUserType().name().toLowerCase());</span>
+<span class="nc" id="L266">        String picturePath = currentUser.getProfilePicturePath();</span>
+<span class="nc bnc" id="L267" title="All 4 branches missed.">        if (picturePath == null || picturePath.isBlank()) {</span>
+<span class="nc" id="L268">            System.out.println(&quot;Profile picture: not set&quot;);</span>
         } else {
 <span class="nc" id="L270">            System.out.println(&quot;Profile picture: &quot; + picturePath);</span>
         }
-<span class="fc" id="L272">    }</span>
+<span class="nc" id="L272">    }</span>
 
     private void updateFullName() {
 <span class="fc bfc" id="L275" title="All 2 branches covered.">        if (currentUser == null) {</span>
@@ -277,73 +277,73 @@ public class UserManagementUI {
         }
         try {
 <span class="fc" id="L279">            String fullName = prompt(&quot;New full name: &quot;);</span>
-<span class="fc" id="L280">            userManager.updateFullName(currentUser, fullName);</span>
-<span class="fc" id="L281">            System.out.println(&quot;Full name updated.&quot;);</span>
+<span class="nc" id="L280">            userManager.updateFullName(currentUser, fullName);</span>
+<span class="nc" id="L281">            System.out.println(&quot;Full name updated.&quot;);</span>
 <span class="fc" id="L282">        } catch (IllegalArgumentException ex) {</span>
 <span class="fc" id="L283">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
-<span class="fc" id="L284">        }</span>
+<span class="nc" id="L284">        }</span>
 <span class="fc" id="L285">    }</span>
 
     private void updateEmail() {
-<span class="fc bfc" id="L288" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="pc bpc" id="L288" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
 <span class="fc" id="L289">            return;</span>
         }
         try {
-<span class="fc" id="L292">            String email = prompt(&quot;New email: &quot;);</span>
-<span class="fc" id="L293">            userManager.updateEmail(currentUser, email);</span>
-<span class="fc" id="L294">            System.out.println(&quot;Email updated.&quot;);</span>
+<span class="nc" id="L292">            String email = prompt(&quot;New email: &quot;);</span>
+<span class="nc" id="L293">            userManager.updateEmail(currentUser, email);</span>
+<span class="nc" id="L294">            System.out.println(&quot;Email updated.&quot;);</span>
 <span class="nc" id="L295">        } catch (IllegalArgumentException ex) {</span>
 <span class="nc" id="L296">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
-<span class="fc" id="L297">        }</span>
-<span class="fc" id="L298">    }</span>
+<span class="nc" id="L297">        }</span>
+<span class="nc" id="L298">    }</span>
 
     private void updatePhone() {
-<span class="fc bfc" id="L301" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="pc bpc" id="L301" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
 <span class="fc" id="L302">            return;</span>
         }
         try {
-<span class="fc" id="L305">            String phone = prompt(&quot;New phone: &quot;);</span>
-<span class="fc" id="L306">            userManager.updatePhone(currentUser, phone);</span>
-<span class="fc" id="L307">            System.out.println(&quot;Phone updated.&quot;);</span>
+<span class="nc" id="L305">            String phone = prompt(&quot;New phone: &quot;);</span>
+<span class="nc" id="L306">            userManager.updatePhone(currentUser, phone);</span>
+<span class="nc" id="L307">            System.out.println(&quot;Phone updated.&quot;);</span>
 <span class="nc" id="L308">        } catch (IllegalArgumentException ex) {</span>
 <span class="nc" id="L309">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
-<span class="fc" id="L310">        }</span>
-<span class="fc" id="L311">    }</span>
+<span class="nc" id="L310">        }</span>
+<span class="nc" id="L311">    }</span>
 
     private void updatePassword() {
-<span class="fc bfc" id="L314" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="pc bpc" id="L314" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
 <span class="fc" id="L315">            return;</span>
         }
         try {
-<span class="fc" id="L318">            String password = prompt(&quot;New password: &quot;);</span>
-<span class="fc" id="L319">            userManager.changePassword(currentUser, password);</span>
-<span class="fc" id="L320">            System.out.println(&quot;Password updated.&quot;);</span>
+<span class="nc" id="L318">            String password = prompt(&quot;New password: &quot;);</span>
+<span class="nc" id="L319">            userManager.changePassword(currentUser, password);</span>
+<span class="nc" id="L320">            System.out.println(&quot;Password updated.&quot;);</span>
 <span class="nc" id="L321">        } catch (IllegalArgumentException ex) {</span>
 <span class="nc" id="L322">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
-<span class="fc" id="L323">        }</span>
-<span class="fc" id="L324">    }</span>
+<span class="nc" id="L323">        }</span>
+<span class="nc" id="L324">    }</span>
 
     private void updateCustomId() {
-<span class="fc bfc" id="L327" title="All 2 branches covered.">        if (currentUser == null) {</span>
+<span class="pc bpc" id="L327" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
 <span class="fc" id="L328">            return;</span>
         }
         try {
-<span class="fc" id="L331">            String customId = prompt(&quot;New custom ID: &quot;);</span>
-<span class="fc" id="L332">            userManager.updateCustomId(currentUser, customId);</span>
-<span class="fc" id="L333">            System.out.println(&quot;Custom ID updated.&quot;);</span>
+<span class="nc" id="L331">            String customId = prompt(&quot;New custom ID: &quot;);</span>
+<span class="nc" id="L332">            userManager.updateCustomId(currentUser, customId);</span>
+<span class="nc" id="L333">            System.out.println(&quot;Custom ID updated.&quot;);</span>
 <span class="nc" id="L334">        } catch (IllegalArgumentException ex) {</span>
 <span class="nc" id="L335">            System.out.println(&quot;Update failed: &quot; + ex.getMessage());</span>
-<span class="fc" id="L336">        }</span>
-<span class="fc" id="L337">    }</span>
+<span class="nc" id="L336">        }</span>
+<span class="nc" id="L337">    }</span>
 
     private void updateProfilePicture() {
-<span class="pc bpc" id="L340" title="1 of 2 branches missed.">        if (currentUser == null) {</span>
+<span class="nc bnc" id="L340" title="All 2 branches missed.">        if (currentUser == null) {</span>
 <span class="nc" id="L341">            return;</span>
         }
-<span class="fc" id="L343">        String response = prompt(&quot;Do you want to add or update a profile picture? (yes/no): &quot;);</span>
-<span class="pc bpc" id="L344" title="2 of 4 branches missed.">        if (!(response.equalsIgnoreCase(&quot;yes&quot;) || response.equalsIgnoreCase(&quot;y&quot;))) {</span>
-<span class="fc" id="L345">            System.out.println(&quot;Profile picture update cancelled.&quot;);</span>
-<span class="fc" id="L346">            return;</span>
+<span class="nc" id="L343">        String response = prompt(&quot;Do you want to add or update a profile picture? (yes/no): &quot;);</span>
+<span class="nc bnc" id="L344" title="All 4 branches missed.">        if (!(response.equalsIgnoreCase(&quot;yes&quot;) || response.equalsIgnoreCase(&quot;y&quot;))) {</span>
+<span class="nc" id="L345">            System.out.println(&quot;Profile picture update cancelled.&quot;);</span>
+<span class="nc" id="L346">            return;</span>
         }
 <span class="nc" id="L348">        String selectedPath = chooseFile(&quot;Select Profile Picture&quot;, &quot;Save&quot;);</span>
 <span class="nc bnc" id="L349" title="All 2 branches missed.">        if (selectedPath == null) {</span>
@@ -401,21 +401,21 @@ public class UserManagementUI {
 <span class="fc" id="L401">            String fullName = prompt(&quot;Full name: &quot;);</span>
 <span class="fc" id="L402">            String customId = prompt(&quot;Custom ID: &quot;);</span>
 <span class="fc" id="L403">            UserType type = readUserType();</span>
-<span class="fc" id="L404">            userManager.createUser(username, password, email, phone, fullName, customId, type);</span>
-<span class="fc" id="L405">            System.out.println(&quot;User created.&quot;);</span>
-<span class="nc" id="L406">        } catch (IllegalArgumentException ex) {</span>
-<span class="nc" id="L407">            System.out.println(&quot;Creation failed: &quot; + ex.getMessage());</span>
-<span class="fc" id="L408">        }</span>
+<span class="nc" id="L404">            userManager.createUser(username, password, email, phone, fullName, customId, type);</span>
+<span class="nc" id="L405">            System.out.println(&quot;User created.&quot;);</span>
+<span class="fc" id="L406">        } catch (IllegalArgumentException ex) {</span>
+<span class="fc" id="L407">            System.out.println(&quot;Creation failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L408">        }</span>
 <span class="fc" id="L409">    }</span>
 
     private void deleteUserByAdmin() {
 <span class="fc" id="L412">        String username = prompt(&quot;Username to delete: &quot;);</span>
         try {
-<span class="fc" id="L414">            userManager.deleteUser(username);</span>
-<span class="fc" id="L415">            System.out.println(&quot;User deleted.&quot;);</span>
-<span class="nc" id="L416">        } catch (IllegalArgumentException ex) {</span>
-<span class="nc" id="L417">            System.out.println(&quot;Delete failed: &quot; + ex.getMessage());</span>
-<span class="fc" id="L418">        }</span>
+<span class="nc" id="L414">            userManager.deleteUser(username);</span>
+<span class="nc" id="L415">            System.out.println(&quot;User deleted.&quot;);</span>
+<span class="fc" id="L416">        } catch (IllegalArgumentException ex) {</span>
+<span class="fc" id="L417">            System.out.println(&quot;Delete failed: &quot; + ex.getMessage());</span>
+<span class="nc" id="L418">        }</span>
 <span class="fc" id="L419">    }</span>
 
     private void showStats() {

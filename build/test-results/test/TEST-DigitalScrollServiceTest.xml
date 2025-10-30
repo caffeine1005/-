@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="DigitalScrollServiceTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:02:19.886Z" hostname="MAIN-DESKTOP" time="0.134">
+<testsuite name="DigitalScrollServiceTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:40:20.517Z" hostname="MAIN-DESKTOP" time="0.132">
   <properties/>
   <testcase name="addScrollRejectsMissingFile()" classname="DigitalScrollServiceTest" time="0.006"/>
   <testcase name="addScrollRejectsDuplicateNames()" classname="DigitalScrollServiceTest" time="0.016"/>
-  <testcase name="addScrollRejectsBlankName()" classname="DigitalScrollServiceTest" time="0.006"/>
-  <testcase name="listScrollsByOwnerFiltersResults()" classname="DigitalScrollServiceTest" time="0.008"/>
-  <testcase name="addUpdateAndRemoveScroll()" classname="DigitalScrollServiceTest" time="0.018"/>
-  <testcase name="updateScrollAllowsSameName()" classname="DigitalScrollServiceTest" time="0.011"/>
+  <testcase name="addScrollRejectsBlankName()" classname="DigitalScrollServiceTest" time="0.004"/>
+  <testcase name="listScrollsByOwnerFiltersResults()" classname="DigitalScrollServiceTest" time="0.009"/>
+  <testcase name="addUpdateAndRemoveScroll()" classname="DigitalScrollServiceTest" time="0.017"/>
+  <testcase name="updateScrollAllowsSameName()" classname="DigitalScrollServiceTest" time="0.009"/>
   <testcase name="removeScrollDoesNotFailWhenFileMissing()" classname="DigitalScrollServiceTest" time="0.009"/>
-  <testcase name="addScrollRejectsNullFilePath()" classname="DigitalScrollServiceTest" time="0.004"/>
-  <testcase name="updateScrollKeepsNameWhenEmpty()" classname="DigitalScrollServiceTest" time="0.01"/>
+  <testcase name="addScrollRejectsNullFilePath()" classname="DigitalScrollServiceTest" time="0.003"/>
+  <testcase name="updateScrollKeepsNameWhenEmpty()" classname="DigitalScrollServiceTest" time="0.009"/>
   <testcase name="addScrollRejectsPipeCharacter()" classname="DigitalScrollServiceTest" time="0.004"/>
-  <testcase name="getScrollReturnsNullForNullId()" classname="DigitalScrollServiceTest" time="0.004"/>
-  <testcase name="addScrollHandlesSourceWithoutExtension()" classname="DigitalScrollServiceTest" time="0.008"/>
+  <testcase name="getScrollReturnsNullForNullId()" classname="DigitalScrollServiceTest" time="0.003"/>
+  <testcase name="addScrollHandlesSourceWithoutExtension()" classname="DigitalScrollServiceTest" time="0.009"/>
   <testcase name="recordDownloadUpdatesRepository()" classname="DigitalScrollServiceTest" time="0.009"/>
-  <testcase name="preventEditingOthersScrolls()" classname="DigitalScrollServiceTest" time="0.009"/>
-  <testcase name="updateScrollRejectsBlankId()" classname="DigitalScrollServiceTest" time="0.004"/>
+  <testcase name="preventEditingOthersScrolls()" classname="DigitalScrollServiceTest" time="0.008"/>
+  <testcase name="updateScrollRejectsBlankId()" classname="DigitalScrollServiceTest" time="0.005"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

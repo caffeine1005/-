@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="UserManagementAdminMenuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:02:20.251Z" hostname="MAIN-DESKTOP" time="0.012">
+<testsuite name="UserManagementAdminMenuTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-10-30T04:40:20.863Z" hostname="MAIN-DESKTOP" time="0.009">
   <properties/>
-  <testcase name="adminMenuManagesUsers()" classname="UserManagementAdminMenuTest" time="0.012"/>
+  <testcase name="adminMenuManagesUsers()" classname="UserManagementAdminMenuTest" time="0.009"/>
   <system-out><![CDATA[--------------------------------------
 Admin scroll management (System Administrator (admin))
 1. List all scrolls
@@ -28,7 +28,7 @@ Admin scroll management (System Administrator (admin))
 8. Delete user
 9. View scroll stats
 10. Return
-Select an option: Username: Password: Email: Phone number: Full name: Custom ID: Select user type (1 = General, 2 = Admin): User created.
+Select an option: Username: Password: Email: Phone number: Full name: Custom ID: Select user type (1 = General, 2 = Admin): Creation failed: Invalid phone number format.
 --------------------------------------
 Admin scroll management (System Administrator (admin))
 1. List all scrolls
@@ -43,7 +43,6 @@ Admin scroll management (System Administrator (admin))
 10. Return
 Select an option: All users:
  - username=admin fullName=System Administrator type=admin email=admin@example.com phone=0000000000 id=admin
- - username=alpha fullName=Alpha User type=general email=alpha@example.com phone=777 id=ALPHA-ID
 --------------------------------------
 Admin scroll management (System Administrator (admin))
 1. List all scrolls
@@ -56,7 +55,7 @@ Admin scroll management (System Administrator (admin))
 8. Delete user
 9. View scroll stats
 10. Return
-Select an option: Username to delete: User deleted.
+Select an option: Username to delete: Delete failed: User not found.
 --------------------------------------
 Admin scroll management (System Administrator (admin))
 1. List all scrolls
